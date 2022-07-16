@@ -8,7 +8,7 @@
 
 This repository contains the code to link Discord accounts to Solana wallet Pubkeys. It contains two services, an API and Client.
 
-The final working and stable prototype after the 8 hours of time allocated to doing this task can be found on commit hash: `3c7272f`. All subsequent commits are refactors of this code to improve the readability, trigger builds and improve the documentation. 
+The final working and stable prototype after the 8 hours of time allocated can be found on commit hash: `3c7272f`. All subsequent commits are refactors of this code to improve the readability, trigger builds and improve the documentation. 
 
 # API
 
