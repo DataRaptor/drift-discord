@@ -80,17 +80,25 @@ const main = async() => {
                         ...discordUserData
                     })
                     await user.save().then(() => console.log("saved!!!"))
-                    res.status(200).json({"message": "You've successfully linked your discord to Drift! Welcome"})
+                    res.status(200).json({
+                        "ok": true,
+                        "message": "Welcome! You've successfully linked your discord to Drift."
+                    })
                 } else {
-                    res.status(200).json({"message": "Your discord is already registed with Drift!"})
+                    res.status(200).json({
+                        "ok": false,
+                        "message": "Your discord is already registed with Drift!"
+                    })
                 }
             } else {
                 res.status(500).send({
+                    "ok": false,
                     "message": "Invalid Signature for Public Key" 
                 })
             }
         } catch(error) {
             res.status(500).json({
+                "ok": false,
                 "message": "Something went wrong. Please try again."
             })
         }

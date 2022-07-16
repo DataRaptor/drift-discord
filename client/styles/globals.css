@@ -1,3 +1,13 @@
+:root {
+  --toastify-color-progress-light: linear-gradient(
+    131deg,
+    #f6f063,
+    #ff3873 35%,
+    #711eff 61%,
+    #3fe5ff 92%
+  );
+}
+
 html,
 body {
   padding: 0;

@@ -10,6 +10,7 @@ import styles from '../styles/Home.module.css';
 import { useRouter } from "next/router"
 import { postCreateDiscordUser } from "../api"
 import { toast } from "react-toastify";
+import { fireConfetti } from "../utils/confetti";
 
 const DISCORD_GENERATED_URL: string = "https://discord.com/api/oauth2/authorize?client_id=997668769570750524&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fv1%2Fdiscord_redirect&response_type=code&scope=identify%20email" // not a secret...
 const DRIFT_MESSAGE: string = "Default Drift Message"
@@ -29,7 +30,7 @@ const triggerToast = (message: string) => {
 const DriftLogo = () => {
     return (
         <a href="http://drift.trade"> 
-            <img className={styles.title} src="/drift-logo.png" />
+            <img className={styles.logoHeader} src="/drift-logo.png" />
         </a>)
 }
 
@@ -52,6 +53,7 @@ const SocialsComponent = () => {
                     accessToken: access_token
                 }
                 const response = await postCreateDiscordUser(body)
+                if (response.status == 200) fireConfetti()
                 const responseJson = await response.json()
                 console.log("DATAATA", responseJson)
                 triggerToast(responseJson.message)
@@ -68,13 +70,13 @@ const SocialsComponent = () => {
     return (
         <div className={styles.socialsContainer}>
         <div className={styles.headerText}>
-            Connect your Solana wallet to get started with Drift Socials.
+            Connect your Solana wallet to get started with Drift Discord.
         </div>
         <div 
             className={styles.walletButtons}
             style={{
                 margin: "auto",
-                width: "50%"                
+                width: "40%"                
             }}
             >
             { (!connected) ? <WalletMultiButton /> : 
