@@ -55,24 +55,21 @@ export const SocialsComponent = () => {
     }
   
     const executePostUserData = async () => {
-      const { access_token } = router.query
+      const accessToken: string = router.query.access_token as string
       const lastSignatureString = localStorage.getItem('lastSignature')
-      console.log('lastSignatureString', lastSignatureString)
-      if (access_token && connected && lastSignatureString) {
+      if (accessToken && connected && lastSignatureString) {
         if (!publicKey) throw new Error('Wallet not connected!')
         const lastSignature = bs58.decode(lastSignatureString)
         const message = new TextEncoder().encode(DRIFT_MESSAGE)
         if (!sign.detached.verify(message, lastSignature, publicKey.toBytes()))
           throw new Error('Invalid signature!')
-        const body = {
+        const response = await postCreateDiscordUser({
           publicKey: bs58.encode(publicKey.toBuffer()),
           signature: bs58.encode(lastSignature),
-          accessToken: access_token,
-        }
-        const response = await postCreateDiscordUser(body)
+          accessToken: accessToken,
+        })
         if (response.status == 200) fireConfetti()
         const responseJson = await response.json()
-        console.log('DATAATA', responseJson)
         triggerToast(responseJson.message)
         router.push('/')
       }
@@ -82,7 +79,7 @@ export const SocialsComponent = () => {
       '/v1/get_discord_user',
       executeGetDiscordUser,
       {
-        refreshInterval: 100,
+        refreshInterval: 1000, // Refetch every 1 seconds.
       }
     )
   

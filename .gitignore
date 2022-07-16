@@ -1,3 +1,6 @@
+# Builds
+build
+
 # Enviroment variables
 *.env
 

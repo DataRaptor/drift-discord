@@ -10,9 +10,12 @@
 
 .usernameText {
   color: white;
-  font-size: 1.3em;
+  font-size: 1.5em;
   font-family: 'Open-Sans';
-  margin-left: 5%;
+  letter-spacing: 1px;
+  line-height: 25px;
+  margin-left: -5%;
+  white-space: nowrap;
 }
 
 .userContainer {
