@@ -41,15 +41,16 @@ const SocialsComponent = () => {
     useEffect(() => {
         const signAndPostUserData = async() => {
             const { access_token } = router.query
-            if (access_token && connected) {
+            const lastSignatureString = localStorage.getItem("lastSignature")
+            console.log('lastSignatureString', lastSignatureString);
+            if (access_token && connected && lastSignatureString) {
                 if (!publicKey) throw new Error('Wallet not connected!');
-                if (!signMessage) throw new Error('Wallet does not support message signing!');
+                const lastSignature = bs58.decode(lastSignatureString)
                 const message = new TextEncoder().encode(DRIFT_MESSAGE);
-                const signature = await signMessage(message);
-                if (!sign.detached.verify(message, signature, publicKey.toBytes())) throw new Error('Invalid signature!');
+                if (!sign.detached.verify(message, lastSignature, publicKey.toBytes())) throw new Error('Invalid signature!');
                 const body = {
                     publicKey: bs58.encode(publicKey.toBuffer()),
-                    signature: bs58.encode(signature),
+                    signature: bs58.encode(lastSignature),
                     accessToken: access_token
                 }
                 const response = await postCreateDiscordUser(body)
@@ -64,13 +65,19 @@ const SocialsComponent = () => {
     }, [connected])
 
     const onConnectDiscordClick = async() => {
+        if (!publicKey) throw new Error('Wallet not connected!');
+        if (!signMessage) throw new Error('Wallet does not support message signing!');
+        const message = new TextEncoder().encode(DRIFT_MESSAGE);
+        const signature = await signMessage(message);
+        if (!sign.detached.verify(message, signature, publicKey.toBytes())) throw new Error('Invalid signature!');
+        localStorage.setItem("lastSignature", bs58.encode(signature))
         router.push(DISCORD_GENERATED_URL)
     }
 
     return (
         <div className={styles.socialsContainer}>
         <div className={styles.headerText}>
-            Connect your Solana wallet to get started with Drift Discord.
+            Connect your Solana wallet to get started with Drift Discord
         </div>
         <div 
             className={styles.walletButtons}
@@ -109,13 +116,12 @@ const Home: NextPage = () => {
 
             <footer className={styles.footer}>
                 <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                    href="http://drift.trade"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Powered by{' '}
                     <span className={styles.logo}>
-                        <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+                        <Image src="/drift-logo.png" alt="Vercel Logo" width={74} height={25} />
                     </span>
                 </a>
             </footer>
