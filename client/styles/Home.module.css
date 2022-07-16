@@ -51,18 +51,18 @@
 }
 
 .connectDiscordButton {
-  border-radius: .56em;
+  border-radius: 0.56em;
   padding: 12px;
   padding-left: 13px;
   padding-right: 13px;
   width: 130%;
   font-size: 1.1em;
-  background-image: url("https://assets.website-files.com/611580035ad59b20437eb024/616f998c4fdccc1e0de4e5a1_btn%20background%20(1).png");
-  font-family: "Open Sans";
+  background-image: url('https://assets.website-files.com/611580035ad59b20437eb024/616f998c4fdccc1e0de4e5a1_btn%20background%20(1).png');
+  font-family: 'Open Sans';
   font-weight: 900;
   background-size: cover;
   color: black;
-  border: 0px
+  border: 0px;
 }
 
 .connectDiscordButton:hover {
@@ -98,10 +98,10 @@
 }
 
 .walletButtons {
-    margin-top: 1.5rem;
-    margin: auto;
-    display: flex;
-    gap: 2rem;
+  margin-top: 1.5rem;
+  margin: auto;
+  display: flex;
+  gap: 2rem;
 }
 
 .description {
