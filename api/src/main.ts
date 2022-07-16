@@ -1,10 +1,15 @@
+<<<<<<< Updated upstream
 require("dotenv").config()
 import express from "express"
 import axios from "axios"
 import { Request } from "node-fetch";
+=======
+import express from 'express'
+>>>>>>> Stashed changes
 import bodyParser = require('body-parser')
-import { sign } from 'tweetnacl';
+import { sign } from 'tweetnacl'
 const cors = require('cors')
+<<<<<<< Updated upstream
 import bs58 from "bs58"
 // import { PublicKey } from "@s"
 
@@ -95,3 +100,126 @@ app.post('/v1/create_discord_user', async(req: express.Request, res: express.Res
 app.listen(PORT, () => {
     console.log("API started...")
 })
+=======
+import bs58 from 'bs58'
+import {
+  handlePostUserController,
+  handleGetUserController,
+} from './controllers'
+import { getDiscordAccessToken, getDiscordUser } from './apis'
+import { logger } from './services/logger'
+import { CLIENT_URL, DRIFT_MESSAGE, PORT } from './config'
+
+const main = async () => {
+  const app = express()
+  app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  )
+  app.use(express.json())
+  app.use(cors())
+
+  app.get(
+    '/v1/discord_redirect',
+    async (req: express.Request, res: express.Response) => {
+      try {
+        const { code } = req.query
+        const access_token = getDiscordAccessToken(code)
+        logger.info('/v1/discord_redirect executed successfully.')
+        res.redirect(`${CLIENT_URL}?access_token=${access_token}`)
+      } catch (error) {
+        logger.error(`/v1/discord_redirect failed with error: ${error}`)
+        res.redirect(CLIENT_URL)
+      }
+    }
+  )
+
+  app.post(
+    '/v1/create_discord_user',
+    async (req: express.Request, res: express.Response) => {
+      try {
+        const { accessToken, signature, publicKey } = req.body
+        const message = new TextEncoder().encode(DRIFT_MESSAGE)
+        if (
+          sign.detached.verify(
+            message,
+            bs58.decode(signature),
+            bs58.decode(publicKey)
+          )
+        ) {
+          const discordUserData: any = await getDiscordUser(accessToken)
+          const toastMessage: string = await handlePostUserController(
+            publicKey,
+            DRIFT_MESSAGE,
+            signature,
+            discordUserData
+          )
+          res.status(200).json({
+            ok: true,
+            message: toastMessage,
+          })
+        } else {
+          logger.error(
+            `/v1/create_discord_user warning, A user with ${publicKey} attempted to use an incorrect signature`
+          )
+          res.status(500).send({
+            ok: false,
+            message: 'Invalid Signature for Public Key',
+          })
+        }
+      } catch (error) {
+        logger.error(
+          `/v1/create_discord_user failed with error ${error.message}`
+        )
+        res.status(500).json({
+          ok: false,
+          message: 'Something went wrong. Please try again.',
+        })
+      }
+    }
+  )
+
+  app.get(
+    '/v1/get_discord_user',
+    async (req: express.Request, res: express.Response) => {
+      try {
+        const signature = req.query.signature as string
+        const publicKey = req.query.publicKey as string
+        const message = new TextEncoder().encode(DRIFT_MESSAGE)
+        if (
+          sign.detached.verify(
+            message,
+            bs58.decode(signature),
+            bs58.decode(publicKey)
+          )
+        ) {
+          const [user, toastMessage] = await handleGetUserController(publicKey)
+          res.status(200).json({
+            ok: true,
+            message: toastMessage,
+            user: user,
+          })
+        }
+        res.status(200).json({
+          ok: true,
+          message:
+            'Connect your discord to get all of the benefits of Drift discord.',
+        })
+      } catch (error) {
+        logger.error(
+          `/v1/create_discord_user failed with error ${error.message}`
+        )
+        res.status(500).json({
+          ok: false,
+          message: 'Could not get user data',
+        })
+      }
+    }
+  )
+
+  app.listen(PORT, async () => console.log('API started...'))
+}
+
+main()
+>>>>>>> Stashed changes
