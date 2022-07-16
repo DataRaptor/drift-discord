@@ -1,6 +1,3 @@
-// This will 
-// import { PublicKey } from "@solana/web3.js"
-
 const API_URL: string = "http://localhost:8080"
 
 interface CreateDiscordUserRequestBody {
@@ -15,7 +12,7 @@ interface CreateDiscordUserResponseBody {
 
 export const postCreateDiscordUser = async (
     body: CreateDiscordUserRequestBody
-): Promise<boolean> => {
+): Promise<any> => {
     console.log("REQUEST URL", `${API_URL}/v1/create_discord_user`)
     console.log("BODY", body)
     const response = await fetch(`${API_URL}/v1/create_discord_user`, {
@@ -23,7 +20,7 @@ export const postCreateDiscordUser = async (
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" },
     });
-    if (response.status != 200) return false;
-    return true;
+    if (response.status == 200) return response;
+    throw Error("")
   };
   

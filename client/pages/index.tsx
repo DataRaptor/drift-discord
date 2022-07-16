@@ -9,61 +9,41 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { useRouter } from "next/router"
 import { postCreateDiscordUser } from "../api"
-import { connect } from "http2";
+import { toast } from "react-toastify";
 
 const DISCORD_GENERATED_URL: string = "https://discord.com/api/oauth2/authorize?client_id=997668769570750524&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fv1%2Fdiscord_redirect&response_type=code&scope=identify%20email" // not a secret...
+const DRIFT_MESSAGE: string = "Default Drift Message"
+
+const triggerToast = (message: string) => {
+    toast(message, {
+        position: "bottom-right",
+        autoClose: 7000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+}
 
 const DriftLogo = () => {
     return (
-        // Note this looks a little blurry might need to adjust width...
         <a href="http://drift.trade"> 
             <img className={styles.title} src="/drift-logo.png" />
         </a>)
 }
 
-const stringToUintArray = (data: string) => Uint8Array.from(Array.from(data).map(letter => letter.charCodeAt(0))); // This method is ugly but performant
-
 const SocialsComponent = () => {
     const router = useRouter()
-    const [driftMessage, setDriftMessage] = useState("Default Drift Message") // Using the same static method is safe here...
     const { connected, publicKey, signMessage } = useWallet();
-
-    useEffect(() => {
-        // Anyway let's handle this later. Seems like some funnyness is happening...
-
-        // if (publicKey && signature?.length > 0) {
-        //     const message: Uint8Array = new TextEncoder().encode(driftMessage);
-        //     const oldSignature: Uint8Array = new Uint8Array(signature)
-        //     console.log("oldSignature", oldSignature)
-        //     if (!sign.detached.verify(message, oldSignature, publicKey.toBytes())){
-        //         setSignature(null)
-        //     }
-        // }
-        // localStorage.setItem("hello", "SOME IMPORTANT VALUE")
-
-        // const lastSignature: Uint8Array = stringToUintArray(localStorage.getItem("lastSignature") as string)
-        // if (publicKey && lastSignature.length == 52){
-        //     // We need to verify that if there's a signature in localstorage, that it checks out
-        //     // with the current pubkey. else we want to clear it.
-        //     const message: Uint8Array = new TextEncoder().encode(driftMessage);
-        //     console.log(">>>>", lastSignature)
-        //     if (!sign.detached.verify(message, lastSignature, publicKey.toBytes())){
-        //         localStorage.setItem("lastSignature", "")
-        //     }
-        // }        
-        // console.log("LOCAL", lastSignature)
-
-    }, [connected, publicKey])
-
 
     useEffect(() => {
         const signAndPostUserData = async() => {
             const { access_token } = router.query
-
             if (access_token && connected) {
                 if (!publicKey) throw new Error('Wallet not connected!');
                 if (!signMessage) throw new Error('Wallet does not support message signing!');
-                const message = new TextEncoder().encode(driftMessage);
+                const message = new TextEncoder().encode(DRIFT_MESSAGE);
                 const signature = await signMessage(message);
                 if (!sign.detached.verify(message, signature, publicKey.toBytes())) throw new Error('Invalid signature!');
                 const body = {
@@ -71,28 +51,18 @@ const SocialsComponent = () => {
                     signature: bs58.encode(signature),
                     accessToken: access_token
                 }
-                await postCreateDiscordUser(body)
-
-
-
+                const response = await postCreateDiscordUser(body)
+                const responseJson = await response.json()
+                console.log("DATAATA", responseJson)
+                triggerToast(responseJson.message)
+                router.push("/")
             }
-        
-            if (connected) {
-                
-            }
-            
         }
         signAndPostUserData()
     }, [connected])
 
     const onConnectDiscordClick = async() => {
-        try {
-            localStorage.setItem("lastSignature", signature.toString()) // how unfortunate this only accepts string...
-            router.push(DISCORD_GENERATED_URL)
-            alert(`Message signature: ${bs58.encode(signature)}`);
-        } catch (error: any) {
-            alert(`Signing failed: ${error?.message}`);
-        }
+        router.push(DISCORD_GENERATED_URL)
     }
 
     return (
@@ -113,15 +83,14 @@ const SocialsComponent = () => {
         <div 
             className={styles.walletButtons}
             style={{
-                // margin: "auto",
-                width: "26%",
-                marginLeft: "275px"
+                margin: "auto",
+                width: "50%"                
             }}
             >
-            { (!connected) ? <WalletMultiButton /> : <button onClick={onConnectDiscordClick}>
+            { (!connected) ? <WalletMultiButton /> : 
+            <button className="connectDiscord" onClick={onConnectDiscordClick}>
                 Connect Discord
             </button> }
-            <WalletMultiButton />
         </div>
         </div>
     )
@@ -129,6 +98,7 @@ const SocialsComponent = () => {
 
 
 const Home: NextPage = () => {
+    const { connected } = useWallet();
     return (
         <div className={styles.container}>
             <Head>
@@ -140,6 +110,9 @@ const Home: NextPage = () => {
             <main className={styles.main}>
                 <DriftLogo/>
                 <SocialsComponent /> 
+                <div style={{marginTop: "25px"}}>
+                    {(connected) && <WalletMultiButton />}
+                </div>
             </main>
 
             <footer className={styles.footer}>
