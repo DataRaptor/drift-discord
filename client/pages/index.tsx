@@ -22,7 +22,7 @@ const DriftLogo = () => {
 
 const SocialsComponent = () => {
     const router = useRouter()
-    const [driftMessage, setDriftMessage] = useState("Default Drift Message")
+    const [driftMessage, setDriftMessage] = useState("Default Drift Message") // Using the same static method is safe here...
     const { connected, publicKey, signMessage } = useWallet();
 
     useEffect(() => {
