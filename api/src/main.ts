@@ -4,8 +4,6 @@ import axios from "axios"
 import { Request } from "node-fetch";
 import url from "url"
 
-// ALL in one file BBB!!!
-
 const app = express();
 
 const DISCORD_API: string = "https://discord.com/api/v8"
