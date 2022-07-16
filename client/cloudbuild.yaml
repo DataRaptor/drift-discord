@@ -1,0 +1,50 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}",
+        "${_SOURCE_PATH}",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      ["push", "gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}"]
+
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "${_SERVICE_NAME}"
+      - "--image"
+      - "gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}"
+      - "--region"
+      - "${_GCP_REGION}"
+      - "--platform"
+      - "managed"
+      - "--cpu"
+      - "${_CPUS}"
+      - "--concurrency"
+      - "${_CONCURRENCY}"
+      - "--memory"
+      - "${_MEMORY}"
+      - "--max-instances"
+      - "${_MAX_INSTANCES}"
+      - "--allow-unauthenticated"
+
+images:
+  - "gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}"
+
+timeout: 1800s
+
+substitutions:
+  _SOURCE_PATH: "."
+  _GCP_PROJECT: "drift-discord"
+  _GCP_REGION: "us-east1"
+  _SERVICE_NAME: "client"
+  _SERVICE_VERSION: "0.0.1"
+  _MEMORY: "1Gi"
+  _CPUS: "1"
+  _CONCURRENCY: "100"
+  _MAX_INSTANCES: "2"
