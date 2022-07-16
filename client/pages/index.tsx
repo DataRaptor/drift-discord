@@ -8,7 +8,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { useRouter } from "next/router"
-import { useLocalStorage } from "../hooks/localStorage"
+import { postCreateDiscordUser } from "../api"
+import { connect } from "http2";
 
 const DISCORD_GENERATED_URL: string = "https://discord.com/api/oauth2/authorize?client_id=997668769570750524&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fv1%2Fdiscord_redirect&response_type=code&scope=identify%20email" // not a secret...
 
@@ -28,7 +29,6 @@ const SocialsComponent = () => {
     const { connected, publicKey, signMessage } = useWallet();
 
     useEffect(() => {
-
         // Anyway let's handle this later. Seems like some funnyness is happening...
 
         // if (publicKey && signature?.length > 0) {
@@ -55,13 +55,38 @@ const SocialsComponent = () => {
 
     }, [connected, publicKey])
 
+
+    useEffect(() => {
+        const signAndPostUserData = async() => {
+            const { access_token } = router.query
+
+            if (access_token && connected) {
+                if (!publicKey) throw new Error('Wallet not connected!');
+                if (!signMessage) throw new Error('Wallet does not support message signing!');
+                const message = new TextEncoder().encode(driftMessage);
+                const signature = await signMessage(message);
+                if (!sign.detached.verify(message, signature, publicKey.toBytes())) throw new Error('Invalid signature!');
+                const body = {
+                    publicKey: bs58.encode(publicKey.toBuffer()),
+                    signature: bs58.encode(signature),
+                    accessToken: access_token
+                }
+                await postCreateDiscordUser(body)
+
+
+
+            }
+        
+            if (connected) {
+                
+            }
+            
+        }
+        signAndPostUserData()
+    }, [connected])
+
     const onConnectDiscordClick = async() => {
         try {
-            if (!publicKey) throw new Error('Wallet not connected!');
-            if (!signMessage) throw new Error('Wallet does not support message signing!');
-            const message = new TextEncoder().encode(driftMessage);
-            const signature = await signMessage(message);
-            if (!sign.detached.verify(message, signature, publicKey.toBytes())) throw new Error('Invalid signature!');
             localStorage.setItem("lastSignature", signature.toString()) // how unfortunate this only accepts string...
             router.push(DISCORD_GENERATED_URL)
             alert(`Message signature: ${bs58.encode(signature)}`);

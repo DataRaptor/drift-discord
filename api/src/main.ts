@@ -2,10 +2,24 @@ require("dotenv").config()
 import express from "express"
 import axios from "axios"
 import { Request } from "node-fetch";
+import bodyParser = require('body-parser')
 import { sign } from 'tweetnacl';
+const cors = require('cors')
+import bs58 from "bs58"
+// import { PublicKey } from "@s"
+
 import url from "url"
 
 const app = express();
+
+app.use(
+bodyParser.urlencoded({
+    extended: true,
+})
+)
+app.use(express.json())
+app.use(cors())
+
 
 const DISCORD_API: string = "https://discord.com/api/v8"
 
@@ -13,7 +27,7 @@ const PORT = process.env.PORT || 8080;
 const DISCORD_CLIENT_ID: string = process.env.DISCORD_CLIENT_ID || ""
 const DISCORD_SECRET: string = process.env.DISCORD_SECRET || ""
 const DISCORD_REDIRECT_URI: string = process.env.DISCORD_REDIRECT_URI || ""
-const DRIFT_MESSAGE: string = process.env.DRIFT_MESSAGE || "Default Message"
+const DRIFT_MESSAGE: string = process.env.DRIFT_MESSAGE || "Default Drift Message"
 
 console.log({
     client_id: DISCORD_CLIENT_ID,
@@ -48,31 +62,33 @@ app.get('/v1/discord_redirect', async(req: express.Request, res: express.Respons
     res.redirect(`http://localhost:3000?access_token=${access_token}`)
 })
 
+
 app.post('/v1/create_discord_user', async(req: express.Request, res: express.Response) => {
-    // We use a post here because we're passing a fairly large payload over.
-
-})
-
-app.get('/v1/create_discord_user', async(req: express.Request, res: express.Response) => {
     // first let's get the auth token
+    console.log("---> ACCESS_TOKEN", req.body)
     const { accessToken, signature, publicKey } = req.body
+
+    console.log("---> ACCESS_TOKEN", accessToken)
 
     // This is where we want to post this stuff to the Database...
     const message = new TextEncoder().encode(DRIFT_MESSAGE);
-    if (sign.detached.verify(message, signature, publicKey)){
+    if (sign.detached.verify(message, bs58.decode(signature), bs58.decode(publicKey))){
         const userResponse = await axios.get(`${DISCORD_API}/users/@me`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
+        console.log("SSUCCEEEESSS!!", userResponse.data)
+    } else {
+        console.log("FAILUREEEE")
     }
-
+    
     res.send({'ok': true})
 })
 
-app.get('/v1/discord_user', async(req: express.Request, res: express.Response) => {
+// app.get('/v1/discord_user', async(req: express.Request, res: express.Response) => {
 
-})
+// })
 
 
 
