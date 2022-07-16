@@ -20,14 +20,17 @@ const DriftLogo = () => {
         </a>)
 }
 
+const stringToUintArray = (data: string) => Uint8Array.from(Array.from(data).map(letter => letter.charCodeAt(0))); // This method is ugly but performant
+
 const SocialsComponent = () => {
     const router = useRouter()
     const [driftMessage, setDriftMessage] = useState("Default Drift Message") // Using the same static method is safe here...
     const { connected, publicKey, signMessage } = useWallet();
 
     useEffect(() => {
-        // We need to verify that if there's a signature in localstorage, that it checks out
-        // with the current pubkey. else we want to clear it.
+
+        // Anyway let's handle this later. Seems like some funnyness is happening...
+
         // if (publicKey && signature?.length > 0) {
         //     const message: Uint8Array = new TextEncoder().encode(driftMessage);
         //     const oldSignature: Uint8Array = new Uint8Array(signature)
@@ -36,7 +39,20 @@ const SocialsComponent = () => {
         //         setSignature(null)
         //     }
         // }
-        localStorage.getItem("hello")
+        // localStorage.setItem("hello", "SOME IMPORTANT VALUE")
+
+        // const lastSignature: Uint8Array = stringToUintArray(localStorage.getItem("lastSignature") as string)
+        // if (publicKey && lastSignature.length == 52){
+        //     // We need to verify that if there's a signature in localstorage, that it checks out
+        //     // with the current pubkey. else we want to clear it.
+        //     const message: Uint8Array = new TextEncoder().encode(driftMessage);
+        //     console.log(">>>>", lastSignature)
+        //     if (!sign.detached.verify(message, lastSignature, publicKey.toBytes())){
+        //         localStorage.setItem("lastSignature", "")
+        //     }
+        // }        
+        // console.log("LOCAL", lastSignature)
+
     }, [connected, publicKey])
 
     const onConnectDiscordClick = async() => {
@@ -45,8 +61,8 @@ const SocialsComponent = () => {
             if (!signMessage) throw new Error('Wallet does not support message signing!');
             const message = new TextEncoder().encode(driftMessage);
             const signature = await signMessage(message);
-            // Verify the message once before proceeding
             if (!sign.detached.verify(message, signature, publicKey.toBytes())) throw new Error('Invalid signature!');
+            localStorage.setItem("lastSignature", signature.toString()) // how unfortunate this only accepts string...
             router.push(DISCORD_GENERATED_URL)
             alert(`Message signature: ${bs58.encode(signature)}`);
         } catch (error: any) {

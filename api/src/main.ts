@@ -2,6 +2,7 @@ require("dotenv").config()
 import express from "express"
 import axios from "axios"
 import { Request } from "node-fetch";
+import { sign } from 'tweetnacl';
 import url from "url"
 
 const app = express();
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 8080;
 const DISCORD_CLIENT_ID: string = process.env.DISCORD_CLIENT_ID || ""
 const DISCORD_SECRET: string = process.env.DISCORD_SECRET || ""
 const DISCORD_REDIRECT_URI: string = process.env.DISCORD_REDIRECT_URI || ""
+const DRIFT_MESSAGE: string = process.env.DRIFT_MESSAGE || "Default Message"
 
 console.log({
     client_id: DISCORD_CLIENT_ID,
@@ -51,23 +53,26 @@ app.post('/v1/create_discord_user', async(req: express.Request, res: express.Res
 
 })
 
+app.get('/v1/create_discord_user', async(req: express.Request, res: express.Response) => {
+    // first let's get the auth token
+    const { accessToken, signature, publicKey } = req.body
 
+    // This is where we want to post this stuff to the Database...
+    const message = new TextEncoder().encode(DRIFT_MESSAGE);
+    if (sign.detached.verify(message, signature, publicKey)){
+        const userResponse = await axios.get(`${DISCORD_API}/users/@me`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+    }
 
-// app.get('/v1/discord_redirect', async(req: express.Request, res: express.Response) => {
-    
-//     // Wow.... URL encoding tripped me up for like 15 mins... no bueno....
-//     // first let's get the auth token
-    
-//     const userResponse = await axios.get(`${DISCORD_API}/users/@me`, {
-//         headers: {
-//             'Authorization': `Bearer ${access_token}`
-//         }
-//     })
-//     // This is where we want to post this stuff to the Database ???
+    res.send({'ok': true})
+})
 
-//     // Lasty we want to revoke or
-//     res.send(userResponse.data)
-// })
+app.get('/v1/discord_user', async(req: express.Request, res: express.Response) => {
+
+})
 
 
 
