@@ -1,0 +1,39 @@
+{
+    "name": "data",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "devDependencies": {
+      "@types/bn.js": "^5.1.0",
+      "@types/express": "^4.17.13",
+      "@types/mocha": "^9.1.1",
+      "@types/mz": "^2.7.4",
+      "@types/node": "^18.0.4",
+      "@types/node-fetch": "^2.6.1",
+      "mocha": "^10.0.0",
+      "nodemon": "^2.0.16",
+      "prettier": "^2.6.2",
+      "ts-mocha": "^10.0.0",
+      "ts-node": "^10.7.0",
+      "typescript": "^4.6.4"
+    },
+    "dependencies": {
+      "@solana/web3.js": "^1.42.0",
+      "axios": "^0.27.2",
+      "dotenv": "^16.0.1",
+      "express": "^4.18.1",
+      "mz": "^2.7.0",
+      "pino": "^7.11.0",
+      "pino-pretty": "^7.6.1",
+      "typeorm": "^0.2.38"
+    },
+    "scripts": {
+      "test": "ts-mocha -p ./tsconfig.json ./tests/**/*.spec.ts",
+      "prettier": "npx prettier --write .",
+      "dev": "nodemon --config nodemon.json src/main.ts | pino-pretty",
+      "dev:debug": "nodemon --config nodemon.json --inspect-brk src/main.ts | pino-pretty",
+      "build": "tsc",
+      "start": "node ./build/main.js | pino-pretty"
+    }
+  }
+  
