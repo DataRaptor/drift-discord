@@ -12,10 +12,13 @@ import {
 import { clusterApiUrl } from '@solana/web3.js';
 import { AppProps } from 'next/app';
 import { FC, useMemo } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
-// Use require instead of import since order matters
+import 'react-toastify/dist/ReactToastify.css';
+
 require('@solana/wallet-adapter-react-ui/styles.css');
 require('../styles/globals.css');
+
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
     // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
@@ -49,6 +52,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
                     <Component {...pageProps} />
                 </WalletModalProvider>
             </WalletProvider>
+            <ToastContainer />
         </ConnectionProvider>
     );
 };
