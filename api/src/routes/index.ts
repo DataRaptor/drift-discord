@@ -1,4 +1,6 @@
-require("dotenv").config()
+// If I had more time i'd seperate these out into controllers so that 
+// the logic is less confusing and so that we don't end up in try-catch if/else hell.
+
 import express from "express"
 import axios from "axios"
 import { sign } from 'tweetnacl';
@@ -7,15 +9,14 @@ import url from "url"
 import { User } from "../models"
 import { logger } from "../services/logger";
 
-const DISCORD_API: string = "https://discord.com/api/v8"
-
-const PORT = process.env.PORT || 8080;
-const DISCORD_CLIENT_ID: string = process.env.DISCORD_CLIENT_ID || ""
-const DISCORD_SECRET: string = process.env.DISCORD_SECRET || ""
-const DISCORD_REDIRECT_URI: string = process.env.DISCORD_REDIRECT_URI || ""
-const DRIFT_MESSAGE: string = process.env.DRIFT_MESSAGE || "Default Drift Message"
-const MONGO_CONN_STRING: string = process.env.MONGO_CONN_STRING || ""
-const CLIENT_URL: string = process.env.CLIENT_URL || "http://localhost:3000"
+import {
+    DISCORD_API,
+    DISCORD_CLIENT_ID,
+    DISCORD_SECRET,
+    DISCORD_REDIRECT_URI,
+    DRIFT_MESSAGE,
+    CLIENT_URL
+} from "../config"
 
 export const getDiscordRedirectRoute = async(req: express.Request, res: express.Response) => {
     try {

@@ -5,9 +5,8 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 import { logger } from "./services/logger";
 import { getDiscordRedirectRoute, postCreateDiscordRedirectRoute, getDiscordUserRoute} from "./routes"
+import { PORT, MONGO_CONN_STRING } from "./config"
 
-const PORT = process.env.PORT || 8080;
-const MONGO_CONN_STRING: string = process.env.MONGO_CONN_STRING || ""
 
 const main = async() => {
     await mongoose.connect(MONGO_CONN_STRING);
