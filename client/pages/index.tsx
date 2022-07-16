@@ -67,17 +67,7 @@ const SocialsComponent = () => {
 
     return (
         <div className={styles.socialsContainer}>
-        <div style={{
-            margin: "auto",
-            width: "300px",
-            color: "white",
-            textAlign: "center",
-            letterSpacing: "1px",
-            lineHeight: "25px",
-            fontSize: "1.2em",
-            marginTop: "80px",
-            marginBottom: "60px"
-        }}>
+        <div className={styles.headerText}>
             Connect your Solana wallet to get started with Drift Socials.
         </div>
         <div 
@@ -88,7 +78,7 @@ const SocialsComponent = () => {
             }}
             >
             { (!connected) ? <WalletMultiButton /> : 
-            <button className="connectDiscord" onClick={onConnectDiscordClick}>
+            <button className={styles.connectDiscordButton} onClick={onConnectDiscordClick}>
                 Connect Discord
             </button> }
         </div>
