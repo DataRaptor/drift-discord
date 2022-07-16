@@ -8,6 +8,7 @@ import bs58 from "bs58"
 import url from "url"
 const mongoose = require('mongoose');
 import { User } from "./models"
+import { logger } from "./services/logger";
 
 const DISCORD_API: string = "https://discord.com/api/v8"
 
@@ -47,9 +48,10 @@ const main = async() => {
                 }
             })
             const { access_token } = tokenResponse.data
+            logger.info("/v1/discord_redirect executed successfully.")
             res.redirect(`${CLIENT_URL}?access_token=${access_token}`)
         } catch(error) {
-            // If something goes wrong, send them back to the client
+            logger.error(`/v1/discord_redirect failed with error: ${error}`)
             res.redirect(CLIENT_URL)
         }
     })
@@ -79,24 +81,27 @@ const main = async() => {
                         message: message,
                         ...discordUserData
                     })
-                    await user.save().then(() => console.log("saved!!!"))
+                    await user.save().then(() => logger.info(`/v1/create_discord_user A user with public key: ${publicKey} was created.`))
                     res.status(200).json({
                         "ok": true,
                         "message": "Welcome! You've successfully linked your discord to Drift."
                     })
                 } else {
+                    logger.warn(`/v1/create_discord_user warning, A user with ${publicKey} attempted to create a user but is already registed.`)
                     res.status(200).json({
                         "ok": false,
                         "message": "Your discord is already registed with Drift. Welcome back!"
                     })
                 }
             } else {
+                logger.error(`/v1/create_discord_user warning, A user with ${publicKey} attempted to use an incorrect signature`)
                 res.status(500).send({
                     "ok": false,
                     "message": "Invalid Signature for Public Key" 
                 })
             }
         } catch(error) {
+            logger.error(`/v1/create_discord_user failed with error ${error.message}`)
             res.status(500).json({
                 "ok": false,
                 "message": "Something went wrong. Please try again."
@@ -108,27 +113,28 @@ const main = async() => {
         try{
             const signature = req.query.signature as string
             const publicKey = req.query.publicKey as string
-            console.log(signature)
-            console.log(publicKey)
             const message = new TextEncoder().encode(DRIFT_MESSAGE);
             if (sign.detached.verify(message, bs58.decode(signature), bs58.decode(publicKey))){
                 const query = await User.find({
                     public_key: publicKey,
                 })
-                 // Take the last document found. We should instead add a datetime to each user model but no time...
+                 // Take the last document found. We should instead add a datetime to each user model but no time left...
                 const user = query[query.length - 1]
+                logger.info(`/v1/get_discord_user successfully returned a user with public key: ${publicKey}`)
                 res.status(200).json({
                     "ok": true,
                     "message": "Welcome back!",
                     "user": user
                 })
             } else {
+                logger.info(`/v1/get_discord_user successfully returned a user with public key: ${publicKey}`)
                 res.status(200).json({
                     "ok": true,
                     "message": "Connect your discord to get all of the benefits of Drift discord."
                 })
             }
         } catch(error) {
+            logger.error(`/v1/create_discord_user failed with error ${error.message}`)
             res.status(500).json({
                 "ok": false,
                 "message": "Could not get user data"

@@ -47,7 +47,7 @@ const UserComponent = ({ discordUsername }: any) => {
 
 const SocialsComponent = () => {
     const router = useRouter()
-    const [ discordUser, setDiscordUser ] = useState({})
+    const [ discordUser, setDiscordUser ] = useState(null)
     const { connected, publicKey, signMessage } = useWallet();
 
     const executeGetDiscordUser = async() => {
@@ -124,11 +124,12 @@ const SocialsComponent = () => {
             }}
             >
             { (!connected) && <WalletMultiButton /> }
-            { (connected && discordUser) && <UserComponent discordUsername={discordUser?.username}/>}
             { (connected && !discordUser) && <button className={styles.connectDiscordButton} onClick={onConnectDiscordClick}>
                 Connect Discord
             </button>
             }
+            { (connected && discordUser) && <UserComponent discordUsername={discordUser?.username}/>}
+            
         </div>
         </div>
     )
