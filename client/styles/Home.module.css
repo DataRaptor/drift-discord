@@ -8,13 +8,23 @@
   margin-left: 15%;
 }
 
+.usernameText {
+  color: white;
+  font-size: 1.2em;
+}
+
+.userContainer {
+  margin: auto;
+  width: 300px;
+}
+
 .socialsContainer {
   margin-top: 20px;
   background-color: #182434;
   width: 396px;
   height: 379px;
   border-radius: 10px;
-  border: 1px solid grey
+  border: 1px solid grey;
 }
 
 .headerText {
@@ -43,7 +53,9 @@
 .connectDiscordButton {
   border-radius: .56em;
   padding: 12px;
-  width: 120%;
+  padding-left: 13px;
+  padding-right: 13px;
+  width: 130%;
   font-size: 1.1em;
   background-image: url("https://assets.website-files.com/611580035ad59b20437eb024/616f998c4fdccc1e0de4e5a1_btn%20background%20(1).png");
   font-family: "Open Sans";

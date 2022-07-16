@@ -6,15 +6,15 @@ interface CreateDiscordUserRequestBody {
     accessToken: string;
 }
 
-interface CreateDiscordUserResponseBody {
-    ok: string
+interface GetDiscordUserRequestParams {
+    publicKey: string;
+    signature: string;
 }
+
 
 export const postCreateDiscordUser = async (
     body: CreateDiscordUserRequestBody
 ): Promise<any> => {
-    console.log("REQUEST URL", `${API_URL}/v1/create_discord_user`)
-    console.log("BODY", body)
     const response = await fetch(`${API_URL}/v1/create_discord_user`, {
       method: "POST",
       body: JSON.stringify(body),
@@ -24,3 +24,16 @@ export const postCreateDiscordUser = async (
     throw Error("")
   };
   
+export const getDiscordUser = async(
+    params: GetDiscordUserRequestParams
+): Promise<any> => {
+    const {publicKey, signature } = params
+    const response = await fetch(`${API_URL}/v1/get_discord_user?signature=${signature}&publicKey=${publicKey}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.status == 200) {
+        return response
+      }
+      throw Error("")
+}
