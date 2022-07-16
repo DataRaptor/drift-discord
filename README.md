@@ -4,6 +4,8 @@
   <h1 style="margin-top:20px;">Drift Discord</h1>
 </div>
 
+# WIP: Come back later :) 
+
 # Drift Discord
 
 This repository contains the code to link Discord accounts to Solana wallet Pubkeys. It contains two services, an API and Client.
