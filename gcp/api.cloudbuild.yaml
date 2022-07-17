@@ -60,7 +60,7 @@ substitutions:
   _CPUS: '1'
   _CONCURRENCY: '100'
   _MAX_INSTANCES: '2'
-  _PORT: 8080
+  _PORT: '8080'
   _DISCORD_API: 'https://discord.com/api/v8'
   _CLIENT_URL: 'https://client-4fpiw4senq-ue.a.run.app'
   _DRIFT_MESSAGE: 'Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain.'
