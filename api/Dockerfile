@@ -10,6 +10,6 @@ RUN npm install
 
 RUN npm run build
 
-# RUN npm run create-env
+RUN npm run create-env
 
 CMD ["npm", "run", "start"]

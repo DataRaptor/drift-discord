@@ -44,8 +44,7 @@ steps:
       - '--max-instances'
       - '${_MAX_INSTANCES}'
       - '--allow-unauthenticated'
-      - '--env-vars-file'
-      - './env'
+      - '--env-vars-file=/app/.env'
       # - '--set-env-vars'
       # - ['PORT=${_PORT}', 'DISCORD_API=${_DISCORD_API}', 'CLIENT_URL=${_CLIENT_URL}', 'DRIFT_MESSAGE=${_DRIFT_MESSAGE}', 'DISCORD_REDIRECT_URI=${_DISCORD_REDIRECT_URI}', 'DISCORD_GENERATED_URL=${_DISCORD_GENERATED_URL}']
       # - '--set-secretEnv'
