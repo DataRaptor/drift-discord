@@ -28,6 +28,9 @@ We follow the
 
 ## Notes
 
-The final working and stable prototype after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
+- The final working and stable prototype after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
 
-All subsequent commits are refactors of this code to improve the UI, readability, trigger builds and improve the documentation. 
+- Subsequent commits are refactors of this code to improve the UI, readability, trigger builds and improve the documentation. 
+
+- If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
+
