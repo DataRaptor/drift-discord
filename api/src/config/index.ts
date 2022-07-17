@@ -16,16 +16,6 @@ export const DISCORD_CLIENT_ID: string = process.env.DISCORD_CLIENT_ID || ''
 export const DISCORD_SECRET: string = process.env.DISCORD_SECRET || ''
 export const AES_HTTP_TRANSPORT_SECRET: string = process.env.AES_HTTP_TRANSPORT_SECRET || "11122233344455566677788822244455555555555555555231231321313aaaff" 
 
-logger.error("LOGGING SOME NON SECRET ENV VARIABLES TO DEBUG DEPLOY.")
+logger.error("Okay so clearly the secrets aren't getting into process.env. It should be safe to log them in my cloud platform if they aren't there... Although i'd want to change them after I debug this....")
 
-logger.error({
-      "$$$ PORT": PORT
-})
-
-logger.error({
-      "$$$ DISCORD_API": DISCORD_API
-})
-
-logger.error({
-      "$$$ DISCORD_REDIRECT_URI": DISCORD_REDIRECT_URI
-})
+logger.error(process.env)

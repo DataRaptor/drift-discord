@@ -33,12 +33,16 @@ steps:
       - '${_MAX_INSTANCES}'
       - '--allow-unauthenticated'
     env:
-      - 'PORT=8080'
-      - 'DISCORD_API=https://discord.com/api/v8'
-      - 'CLIENT_URL=https://client-4fpiw4senq-ue.a.run.app'
-      - 'DRIFT_MESSAGE=Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain.'
-      - 'DISCORD_REDIRECT_URI=TODO AFTER SUCCESSFUL DEPLOY'
-      - 'DISCORD_GENERATED_URL=TODO AFTER SUCCESSFUL DEPLOY'
+      - 'PORT=${_PORT}'
+      - 'DISCORD_API=${_DISCORD_API}'
+      - 'CLIENT_URL=${_CLIENT_URL}'
+      - 'DRIFT_MESSAGE=${_DRIFT_MESSAGE}'
+      - 'DISCORD_REDIRECT_URI=${_DISCORD_REDIRECT_URI}'
+      - 'DISCORD_GENERATED_URL=${_DISCORD_GENERATED_URL}'
+      - 'MONGO_CONN_STRING=$$MONGO_CONN_STRING'
+      - 'DISCORD_CLIENT_ID=$$DISCORD_CLIENT_ID'
+      - 'DISCORD_SECRET=$$DISCORD_SECRET'
+      - 'AES_HTTP_TRANSPORT_SECRET=$$AES_HTTP_TRANSPORT_SECRET'
     secretEnv: ['MONGO_CONN_STRING', 'DISCORD_CLIENT_ID', "DISCORD_SECRET", "AES_HTTP_TRANSPORT_SECRET"]
 
 images:
@@ -56,12 +60,12 @@ substitutions:
   _CPUS: '1'
   _CONCURRENCY: '100'
   _MAX_INSTANCES: '2'
-  # _PORT: '8080'
-  # _DISCORD_API: 'https://discord.com/api/v8'
-  # _CLIENT_URL: 'https://client-4fpiw4senq-ue.a.run.app'
-  # _DRIFT_MESSAGE: 'Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain.'
-  # _DISCORD_REDIRECT_URI: "TODO AFTER SUCCESSFUL DEPLOY"
-  # _DISCORD_GENERATED_URL: "TODO AFTER SUCCESSFUL DEPLOY"
+  _PORT: '8080'
+  _DISCORD_API: 'https://discord.com/api/v8'
+  _CLIENT_URL: 'https://client-4fpiw4senq-ue.a.run.app'
+  _DRIFT_MESSAGE: 'Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain.'
+  _DISCORD_REDIRECT_URI: "TODO AFTER SUCCESSFUL DEPLOY"
+  _DISCORD_GENERATED_URL: "TODO AFTER SUCCESSFUL DEPLOY"
 availableSecrets:
   secretManager:
   - versionName: 'projects/326234874656/secrets/MONGO_CONN_STRING/versions/1'
