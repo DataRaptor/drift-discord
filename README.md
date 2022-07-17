@@ -8,61 +8,26 @@
 
 # Drift Discord
 
-This repository contains the code to link Discord accounts to Solana wallet Pubkeys. It contains two services, an API and Client.
+This repository contains the code to link Discord accounts to Solana wallet Pubkeys. 
 
-The final working and stable prototype after the 8 hours of time allocated can be found on commit hash: `3c7272f`. All subsequent commits are refactors of this code to improve the readability, trigger builds and improve the documentation. 
+Click [here](https://client-4fpiw4senq-ue.a.run.app) to view the web app.
 
-# API
+Click [here]() to go to the deployed API.
 
-## Db
-Mongodb since configuring a cloud sql instance and proxying in would have taken too much time
+## Services
 
-## Configuration
+This repo contains two services, an API and Client.
 
-The following in an example `.env` file that you must place in the top level of the `api` directory.
+Documentation for each can be found in the respective directories. 
 
-```
-PORT=8080
-MONGO_CONN_STRING="mongodb+srv://[...REDACTED]"
-DISCORD_CLIENT_ID="[REDACTED]"
-DISCORD_SECRET="[REDACTED]"
-DISCORD_REDIRECT_URI="http://localhost:8080/v1/discord_redirect"
-DRIFT_MESSAGE="Welcome to Drift Discord!"
-```
 
-## Deployment
+## Architecture
 
-`gcloud builds submit`
+We follow the 
 
-# Client
 
-## Configuration
+## Notes
 
-The client configuration requires no secrets. Ideally, this should also go in it's own `.env` file.
+The final working and stable prototype after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
 
-```
-export const DISCORD_GENERATED_URL: string = ''
-export const DRIFT_MESSAGE: string = "Welcome to Drift Discord!"
-```
-
-You may generate a `DISCORD_GENERATED_URL` from the oauth admin console of Discord after specifying permissions. 
-
-## Deployment
-
-`gcloud builds submit`
-
-# Docs
-
-A basic figma wireframe of the design can be found in the `docs` directory.
-
-# Gottchas
-
- - The `DRIFT_MESSAGE` in both the `api` and `client` must be set to the same message for signature verification to work.
- - When the api hands back the accessToken to the client it does so by redirect with a query parameter. This is safe because 
-   urls are SSL encrypts this traffic
-
-# TODOs
-
-- Create `controllers` for the routes to get rid of try-catch / if-else hell.
-- Clean up the frontend code some more.
-- Add a token revoke on the url to cleanup
+All subsequent commits are refactors of this code to improve the UI, readability, trigger builds and improve the documentation. 

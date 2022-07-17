@@ -4,7 +4,7 @@
 
 This is a React/NextJs web app for linking Drift user's discord account with their Solana Wallet.
 
-The application is deployed here: `https://client-4fpiw4senq-ue.a.run.app`
+The application is deployed [here](`https://client-4fpiw4senq-ue.a.run.app`)
 
 ## Configuration
 
