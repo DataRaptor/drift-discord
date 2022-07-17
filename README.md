@@ -41,9 +41,9 @@ Additionally, we encrypt the discord access tokens via `AES` when the tokens are
 
 We also make use of the client's localstorage to cache to imporve the user experience, signing too many messages in the browser can be cumbersom. 
 
-We store the lastSignature of the user on redirect, and to serve as an argument on API requests. We revalidate validate the signature of the user on secure endpoints of the API, particularly: `POST::discordUser` and `GET::discordUser` for security.
+We store the lastSignature because of the redirect and to serve as an argument on API requests. We revalidate validate the signature of the user on secure endpoints of the API, particularly for security in the `POST::discordUser` and `GET::discordUser` endpoints.
 
-We also revalidate these signatures on the client before requests are made in the event that wallet pubkeys have changed or local storage is wiped. 
+We also revalidate these signatures on the client before requests are made in the event that wallet pubkeys have changed or local storage is wiped. We rerequest signing when required.
 
 Since we're not doing any complex joins I thought it was sufficient to use a Document store as my DB, I chose mongo. For this usecase, this is fine. We're storing a single model and not doing any complex joins.
 
