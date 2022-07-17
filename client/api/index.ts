@@ -1,4 +1,4 @@
-const API_URL: string = 'http://localhost:8080'
+import { API_URL } from "../config"
 
 interface CreateDiscordUserRequestBody {
   publicKey: string
@@ -48,6 +48,8 @@ export const postCreateDiscordUser = async (
     body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
   })
-  if (response.status == 200) return response
+  if (response.status == 200){
+    return response
+  }
   throw Error('POST:discord_user return a non 200 status code.')
 }

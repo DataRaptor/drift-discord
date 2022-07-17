@@ -10,7 +10,7 @@ export const DriftDiscordLogo: React.FC = () => {
         justifyContent: 'space-between',
         marginLeft: '90px',
         marginRight: '90px',
-        marginTop: '-15px',
+        marginTop: '-25px',
         // marginBottom: '30px',
       }}
     ><a href="http://drift.trade">

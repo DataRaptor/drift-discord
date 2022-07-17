@@ -145,7 +145,7 @@ export const SocialsComponent = () => {
         style={{
           margin: 'auto',
           width: '40%',
-          marginTop: '55px',
+          marginTop: '75px',
         }}
       >
         {!registrationConfigFetched && <LoadingSpinner />}
