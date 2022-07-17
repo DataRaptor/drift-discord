@@ -23,7 +23,10 @@ Documentation for each can be found in the respective directories.
 
 ## Architecture
 
-We follow the 
+We follow the standard OAuth procedure with the caveat that we will need to sign and verify signatures from the wallets both on the server. 
+
+<img height="120x" src="https://github.com/DataRaptor/drift-discord/blob/03f053ed7e80627935120648662261d060d0d88f/docs/arch.png" />
+
 
 
 ## Notes
