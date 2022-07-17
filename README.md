@@ -28,11 +28,12 @@ The motive for the design was to provide a clean, delightful and feedback rich e
 
 ## Architecture
 
-We follow the standard OAuth procedure with the caveat that we will need to sign and verify signatures from the wallets both on the server. 
 
 The following diagram will explain the control flow. 
 
 <img src="https://github.com/DataRaptor/drift-discord/blob/03f053ed7e80627935120648662261d060d0d88f/docs/arch.png" width="100%" height="auto"/>
+
+We follow the standard OAuth procedure with the caveat that we will need to sign and verify signatures from the wallets both on the server and client. 
 
 Particular attention is given to security during interactions between the client and api, namely to verify that the user sending requests are who they say they (via discord access token and Solana wallet signatures). 
 
