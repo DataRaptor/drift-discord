@@ -72,7 +72,7 @@ export const SocialsComponent = () => {
 
     // This will ensure valid signatures make it to the API and minimize the number of times
     // users have to sign messages.
-
+    if (!registrationConfigFetched) return // break if we have not fetched registration yet
     const message = new TextEncoder().encode(driftMessage) as Uint8Array
     const executeRefetchSignature = async () => {
       if (connected && publicKey) {
@@ -92,7 +92,7 @@ export const SocialsComponent = () => {
       }
     }
     executeRefetchSignature()
-  }, [connected, publicKey])
+  }, [connected, publicKey, driftMessage])
 
   const onConnectDiscordClick = async () => {
     const lastSignatureString = getSignatureFromLocalStorage()
@@ -146,6 +146,7 @@ export const SocialsComponent = () => {
   }, [router.query.access_token, connected])
 
   const executeGetRegistrationConfig = async () => {
+    if (registrationConfigFetched) return
     const responseJson = await getRegistrationConfig()
     if (responseJson.ok) setRegistrationConfigFetched(true)
     return responseJson
@@ -155,7 +156,7 @@ export const SocialsComponent = () => {
     'GET::/v1/discord_user',
     executeGetDiscordUser,
     {
-      refreshInterval: 100, // Refetch every 0.1 seconds. Note that requests will not be made if the discordUserData has already been fetched. This will make our page highly responsive.
+      refreshInterval: 100, // Execute every 0.1 seconds. Note that requests will not be made if the discordUserData has already been fetched. This will make our page highly responsive.
     }
   )
 
@@ -163,7 +164,7 @@ export const SocialsComponent = () => {
     'GET::/v1/registration_config',
     executeGetRegistrationConfig,
     {
-      refreshInterval: 30 * 1000, // Refresh every 30 seconds. We may push a new `DRIFT_MESSAGE` to the api, in these cases 30 seconds seems acceptable. This will make our page highly responsive.
+      refreshInterval: 100, // Execute every 0.1 seconds. We may push a new `DRIFT_MESSAGE` to the api, in these cases 30 seconds seems acceptable. This will make our page highly responsive.
     }
   )
 
