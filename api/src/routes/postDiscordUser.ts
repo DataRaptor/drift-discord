@@ -13,7 +13,7 @@ export const postDiscordUserHandler = async (
             const { accessToken, signature, publicKey } = req.body
             const decryptedAccessToken: string = decryptAccessToken(accessToken)
             if (verifySignature(publicKey, signature)) {
-                  const discordUserData = getDiscordUserData(decryptedAccessToken)
+                  const discordUserData = await getDiscordUserData(decryptedAccessToken)
                   const query = await User.find({
                         public_key: publicKey,
                         ...discordUserData,

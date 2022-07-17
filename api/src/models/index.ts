@@ -18,6 +18,8 @@ const userSchema = new mongoose.Schema({
       public_key: String,
       signature: String,
       message: String,
+      created : { type : Date, default: Date.now }
+
 })
 
 export const User = mongoose.model('User', userSchema)
