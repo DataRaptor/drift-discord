@@ -33,39 +33,37 @@ export const postDiscordUserHandler = async (
                               .save()
                               .then(() =>
                                     logger.info(
-                                          `/v1/create_discord_user A user with public key: ${publicKey} was created.`
+                                          `A user with public key: ${publicKey} was created.`
                                     )
                               )
                         await revokeDiscordAccessToken(accessToken) // finally revoke the access token
                         res.status(200).json({
                               ok: true,
                               message: "Welcome! You've successfully linked your discord to Drift.",
+                              error: null
                         })
                   } else {
                         logger.warn(
-                              `/v1/create_discord_user warning, A user with ${publicKey} attempted to create a user but is already registed.`
+                              `A user with ${publicKey} attempted to create a user but is already registed.`
                         )
                         res.status(200).json({
                               ok: false,
                               message: 'Your discord is already registed with Drift. Welcome back!',
+                              error: null
                         })
                   }
             } else {
-                  logger.error(
-                        `/v1/create_discord_user warning, A user with ${publicKey} attempted to use an incorrect signature`
-                  )
                   res.status(500).send({
                         ok: false,
                         message: 'Invalid Signature for Public Key',
+                        error: `A user with ${publicKey} attempted to use an incorrect signature`
                   })
             }
       } catch (error) {
-            logger.error(
-                  `/v1/create_discord_user failed with error ${error.message}`
-            )
             res.status(500).json({
                   ok: false,
                   message: 'Something went wrong. Please try again.',
+                  error: error.message
             })
       }
 }

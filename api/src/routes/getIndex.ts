@@ -13,12 +13,12 @@ export const getIndexHandler = async (
                   message: 'online',
             })
       } catch (error) {
-            logger.error(`/ Error: ${error}`)
             res.status(500).json({
                   ok: false,
                   serviceName: '[drift-discord:api]',
                   version: '1',
                   message: 'offline',
+                  error: error.message
             })
       }
 }
