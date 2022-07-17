@@ -69,9 +69,7 @@ TODO: We have no testing on either service.
 
 - If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
 
-- Since I am on the only one in this repo, I typically commit right to `main` despite the rebuilds.
-
-- Need to add a final API call to revoke the token.
+- Since I am on the only one in this repo, I typically commit right to `main` despite the rebuilds. No branches / pull requests needed.
 
 - Damian mentioned we want to store less data, need to implement that. But that's easy.
 

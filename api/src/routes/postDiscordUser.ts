@@ -2,7 +2,7 @@ import express from 'express'
 import { User } from '../models'
 import { logger } from '../services/logger'
 import { verifySignature, decryptAccessToken } from '../utils'
-import { getDiscordUserData } from '../apis'
+import { getDiscordUserData, revokeDiscordAccessToken } from '../apis'
 import { DRIFT_MESSAGE } from '../config'
 
 export const postDiscordUserHandler = async (
@@ -36,6 +36,7 @@ export const postDiscordUserHandler = async (
                                           `/v1/create_discord_user A user with public key: ${publicKey} was created.`
                                     )
                               )
+                        await revokeDiscordAccessToken(accessToken) // finally revoke the access token
                         res.status(200).json({
                               ok: true,
                               message: "Welcome! You've successfully linked your discord to Drift.",

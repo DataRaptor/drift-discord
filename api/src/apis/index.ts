@@ -7,6 +7,7 @@ import {
       DISCORD_SECRET,
       DISCORD_REDIRECT_URI,
 } from '../config'
+import { logger } from '../services'
 
 export const exchangeDiscordAccessToken = async (
       code: string | ParsedQs | string[] | ParsedQs[]
@@ -38,4 +39,23 @@ export const getDiscordUserData = async (accessToken: string) => {
             },
       })
       return userResponse.data
+}
+
+export const revokeDiscordAccessToken = async(accessToken: string): Promise<boolean> => {
+      const urlSearchParams = new url.URLSearchParams({
+            client_id: DISCORD_CLIENT_ID,
+            client_secret: DISCORD_SECRET,
+            token: accessToken,
+      }).toString()
+      const revokeResponse = await axios.post(
+            `${DISCORD_API}/oauth2/token/revoke`,
+            urlSearchParams.toString(),
+            {
+                  headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                  }
+            }
+      )
+      if (revokeResponse.status == 200) return true
+      return false
 }
