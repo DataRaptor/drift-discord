@@ -2,5 +2,6 @@
 default:
 	make dev
 
+.PHONY: dev
 dev:
 	yarn run dev
