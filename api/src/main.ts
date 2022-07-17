@@ -33,7 +33,7 @@ const main = async () => {
             '/v1/registration_config',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
-                  30 // mac 30 requests per 1 min per ip.
+                  30 // max 30 requests per 1 min per ip.
             ),
             getRegistrationConfigHandler
       )

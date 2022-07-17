@@ -4,8 +4,7 @@ import AesEncryption from 'aes-encryption'
 import { DRIFT_MESSAGE, AES_HTTP_TRANSPORT_SECRET } from '../config'
 import { logger } from '../services/logger'
 
-// Solana Encryption Message
-const message = new TextEncoder().encode(DRIFT_MESSAGE)
+const message = new TextEncoder().encode(DRIFT_MESSAGE) // Solana Encryption Message
 export const verifySignature = (
       publicKey: string,
       signature: string
@@ -22,8 +21,7 @@ export const verifySignature = (
       return false
 }
 
-// Http Transport Encryptor/ Decryptor
-const aes = new AesEncryption()
+const aes = new AesEncryption() // Http Transport Encryptor/ Decryptor
 aes.setSecretKey(AES_HTTP_TRANSPORT_SECRET)
 export const encryptAccessToken = (accessToken: string): string => aes.encrypt(accessToken)
 export const decryptAccessToken = (encryptedAccessToken: string): string => aes.decrypt(encryptedAccessToken)

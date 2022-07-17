@@ -2,13 +2,15 @@
 
 ## Overview 
 
-This is an Express API for linking Drift user's discord account with their Solana Wallet.
+This is an Express API to serve as the backend for linking Drift user's discord account with their Solana Wallet.
 
 The application is deployed here: `<INSERT_LINK>`
 
 ## Configuration
 
-This services requires a decent amount of configuration through a `.env` file. Here is a `.env` template with fake secrets to help you get up and running.
+This services requires a decent amount of configuration through a `.env` file. 
+
+Here is a `.env` template with *** fake *** secrets to help you get up and running.
 
 ```
 PORT=8080
