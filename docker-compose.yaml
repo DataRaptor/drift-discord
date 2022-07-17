@@ -13,14 +13,14 @@ services:
     restart: always
   environment:
     PORT=8080
-    MONGO_CONN_STRING=""
-    DISCORD_API=""
-    DISCORD_CLIENT_ID=""
-    DISCORD_SECRET=""
-    DISCORD_REDIRECT_URI=""
-    DRIFT_MESSAGE=""
-    CLIENT_URL=""
-    AES_HTTP_TRANSPORT_SECRET=""
+    MONGO_CONN_STRING=
+    DISCORD_API=
+    DISCORD_CLIENT_ID=
+    DISCORD_SECRET=
+    DISCORD_REDIRECT_URI=
+    DRIFT_MESSAGE=
+    CLIENT_URL=
+    AES_HTTP_TRANSPORT_SECRET=
   client:
     container_name: client
     build:
