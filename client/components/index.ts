@@ -7,11 +7,11 @@ import { LoadingSpinner } from './socials-component/loading-spinner'
 import { SocialsComponent } from './socials-component'
 
 export {
-  ConnectButton,
-  DisconnectButton,
-  DriftDiscordLogo,
-  DriftLogo,
-  GradientBackground,
-  LoadingSpinner,
-  SocialsComponent,
+      ConnectButton,
+      DisconnectButton,
+      DriftDiscordLogo,
+      DriftLogo,
+      GradientBackground,
+      LoadingSpinner,
+      SocialsComponent,
 }

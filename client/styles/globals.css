@@ -1,26 +1,26 @@
 :root {
-  --toastify-color-progress-light: linear-gradient(
-    131deg,
-    #f6f063,
-    #ff3873 35%,
-    #711eff 61%,
-    #3fe5ff 92%
-  );
+      --toastify-color-progress-light: linear-gradient(
+            131deg,
+            #f6f063,
+            #ff3873 35%,
+            #711eff 61%,
+            #3fe5ff 92%
+      );
 }
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      padding: 0;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+      color: inherit;
+      text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+      box-sizing: border-box;
 }
