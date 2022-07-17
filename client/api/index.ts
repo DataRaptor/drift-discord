@@ -31,7 +31,7 @@ export const getDiscordUser = async (
 export const getRegistrationConfig = async (): Promise<any> => {
   const response = await fetch(`${API_URL}/v1/registration_config`, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json'}
+    headers: { 'Content-Type': 'application/json' },
   })
   if (response.status == 200) {
     const responseJson = await response.json()

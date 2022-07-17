@@ -25,7 +25,7 @@ const main = async () => {
             '/v1/discord_user',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
-                  15 //  15 requests per 1 mins per ip.
+                  60 //  max 60 requests per 1 mins per ip.
             ),
             getDiscordUserHandler
       )
@@ -33,7 +33,7 @@ const main = async () => {
             '/v1/registration_config',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
-                  30 // 30 requests per 1 min per ip.
+                  30 // mac 30 requests per 1 min per ip.
             ),
             getRegistrationConfigHandler
       )
@@ -41,7 +41,7 @@ const main = async () => {
             '/v1/discord_user',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
-                  5 // 5 requests per 1 mins per ip.
+                  5 // max 5 requests per 1 mins per ip.
             ),
             postDiscordUserHandler
       )

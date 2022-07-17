@@ -13,15 +13,24 @@
   color: white;
   font-size: 1.2em;
   font-family: 'Open-Sans';
-  letter-spacing: 1px;
+  letter-spacing: 1.25px;
   line-height: 25px;
-  margin-left: 5%;
   white-space: nowrap;
+  text-align: center;
+  text-transform: capitalize;
 }
 
-.userContainer {
-  margin: auto;
-  width: 300px;
+.logoLinkGlow {
+  z-index: 2;
+  transition: 1s;
+  border-radius: 50%;
+}
+
+.logoLinkGlow:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  width: 95px;
+  box-shadow: 0 10px 20px rgba(216, 164, 255, 0.405);
 }
 
 .socialsContainer {
@@ -31,7 +40,7 @@
   height: 379px;
   border-radius: 10px;
   border: 1px solid #342a38;
-  z-index: 2
+  z-index: 2;
 }
 
 .headerText {
@@ -41,9 +50,9 @@
   text-align: center;
   letter-spacing: 1px;
   line-height: 30px;
-  font-size: 1.3em;
+  font-size: 1.25em;
   margin-top: 80px;
-  margin-bottom: 75px;
+  margin-bottom: 0px;
   background-image: linear-gradient(
     131deg,
     #f6f063,
@@ -57,31 +66,50 @@
   -webkit-text-fill-color: transparent;
 }
 
+.connectButtonWrapper {
+  margin-top: 60px;
+}
+
 .wrapHeadlineBounty {
   -webkit-text-size-adjust: 100%;
-  font-family: Denim,sans-serif;
+  font-family: 'Open Sans';
   line-height: 1.3em;
   font-size: 16px;
   -webkit-box-direction: normal;
   box-sizing: border-box;
   color: inherit;
   width: 160px;
-  padding: .125em;
+  padding: 0.125em;
   border-radius: 20em;
-  background-image: linear-gradient(159deg,#f6f063,#ff3873 31%,#711eff 66%,#3fe5ff);
-  transition: 0.5s;
+  background-image: linear-gradient(
+    159deg,
+    #f6f063,
+    #ff3873 31%,
+    #711eff 66%,
+    #3fe5ff
+  );
+  transition: 1s;
+  z-index: 2;
+  margin-top: 20px;
 }
 
 .wrapHeadlineBounty:hover {
   cursor: pointer;
   box-shadow: 1px 1px black;
-  transition: 0.5s;
-  box-shadow: 0 5px 15px rgba(227, 135, 233, 0.4);
+  transition: 1s;
+  box-shadow: 0 5px 15px rgba(216, 164, 255, 0.405);
+  background-image: linear-gradient(
+    159deg,
+    #ffd104,
+    #ff0000 31%,
+    #8000ff 66%,
+    #00c8ff
+  );
 }
 
 .secondWrapTextHeadlineBounty {
   -webkit-text-size-adjust: 100%;
-  font-family: Denim,sans-serif;
+  font-family: 'Open Sans';
   line-height: 1.3em;
   font-size: 16px;
   -webkit-box-direction: normal;
@@ -91,9 +119,9 @@
   background-color: #000;
 }
 
-.h4GradientBountyHeadline {
+.h4GradientBountyHeadlineConnect {
   -webkit-text-size-adjust: 100%;
-  font-family: Denim,sans-serif;
+  font-family: Denim, sans-serif;
   line-height: 0.7em;
   -webkit-box-direction: normal;
   box-sizing: border-box;
@@ -105,26 +133,39 @@
   border: 1px #000;
   text-align: center;
   border-radius: 20em;
-  background-image: linear-gradient(180deg,hsla(0,0%,100%,.13),hsla(0,0%,100%,.42)),linear-gradient(103deg,#f6f063,transparent 27%),linear-gradient(111deg,#ff3873 23%,#711eff 55%,#3fe5ff 83%);
+  background-image: linear-gradient(
+      180deg,
+      hsla(0, 0%, 100%, 0.13),
+      hsla(0, 0%, 100%, 0.42)
+    ),
+    linear-gradient(103deg, #f6f063, transparent 27%),
+    linear-gradient(111deg, #ff3873 23%, #711eff 55%, #3fe5ff 83%);
   font-size: 1.1em;
 }
 
-.disconnectWalletButton {
-  border-radius: 4px;
-  padding: 10px;
-  margin-top: 25px;
-  width: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+.h4GradientBountyHeadlineDisconnect {
+  -webkit-text-size-adjust: 100%;
+  font-family: Denim, sans-serif;
+  line-height: 0.7em;
+  -webkit-box-direction: normal;
+  box-sizing: border-box;
+  color: inherit;
+  display: inline-block;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 1em;
+  border: 1px #000;
+  text-align: center;
+  border-radius: 20em;
+  margin-left: 20px;
+  background-image: linear-gradient(
+      180deg,
+      hsla(0, 0%, 100%, 0.13),
+      hsla(0, 0%, 100%, 0.42)
+    ),
+    linear-gradient(103deg, #f6f063, transparent 27%),
+    linear-gradient(111deg, #ff3873 23%, #711eff 55%, #3fe5ff 83%);
   font-size: 1.1em;
-  background-color: #582cac;
-  display: block;
-  font-family: 'Open Sans';
-  font-weight: 900;
-  background-size: cover;
-  color: white;
-  border: 0px;
-  z-index: 2;
 }
 
 .disconnectWalletButton:hover {
@@ -152,6 +193,14 @@
   cursor: pointer;
   box-shadow: 1px 1px black;
   transition: 1s;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
 }
 
 .main {

@@ -1,7 +1,5 @@
-import { fireConfetti} from './confetti'
-import { triggerToast } from "./toast"
+import { fireConfetti } from './confetti'
+import { triggerToast } from './toast'
+import { removeQueryParamsFromRouter } from './router'
 
-export {
-    fireConfetti,
-    triggerToast
-}
+export { fireConfetti, triggerToast, removeQueryParamsFromRouter }
