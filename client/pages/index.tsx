@@ -1,16 +1,13 @@
-import {
-  WalletMultiButton,
-} from '@solana/wallet-adapter-react-ui'
-import { useWallet } from '@solana/wallet-adapter-react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { DriftLogo, SocialsComponent } from "../components"
+import { DriftLogo, SocialsComponent, GradientBackground, DisconnectButton } from "../components"
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const { connected } = useWallet()
   return (
+    <>
+    <GradientBackground/>
     <div className={styles.container}>
       <Head>
         <title>Drift Discord</title>
@@ -24,9 +21,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <DriftLogo />
         <SocialsComponent />
-        <div style={{ marginTop: '25px' }}>
-          {connected && <WalletMultiButton />}
-        </div>
+        <DisconnectButton/>
       </main>
 
       <footer className={styles.footer}>
@@ -34,7 +29,7 @@ const Home: NextPage = () => {
           <span className={styles.logo}>
             <Image
               src="/drift-logo.png"
-              alt="Vercel Logo"
+              alt="Drift Logo"
               width={74}
               height={25}
             />
@@ -42,6 +37,7 @@ const Home: NextPage = () => {
         </a>
       </footer>
     </div>
+    </>
   )
 }
 

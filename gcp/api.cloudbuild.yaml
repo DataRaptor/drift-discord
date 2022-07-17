@@ -32,6 +32,16 @@ steps:
       - '--max-instances'
       - '${_MAX_INSTANCES}'
       - '--allow-unauthenticated'
+    env:
+      - 'PORT=${PORT}'
+      - 'MONGO_CONN_STRING=${MONGO_CONN_STRING}'
+      - 'DISCORD_API=${DISCORD_API}'
+      - 'DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}'
+      - 'DISCORD_SECRET=${DISCORD_SECRET}'
+      - 'DISCORD_REDIRECT_URI=${DISCORD_REDIRECT_URI}'
+      - 'DRIFT_MESSAGE=${DRIFT_MESSAGE}'
+      - 'CLIENT_URL=${CLIENT_URL}'
+      - 'AES_HTTP_TRANSPORT_SECRET=${AES_HTTP_TRANSPORT_SECRET}'
 
 images:
   - 'gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}'
@@ -39,10 +49,10 @@ images:
 timeout: 1800s
 
 substitutions:
-  _SOURCE_PATH: '.'
+  _SOURCE_PATH: './api'
   _GCP_PROJECT: 'drift-discord'
   _GCP_REGION: 'us-east1'
-  _SERVICE_NAME: 'client'
+  _SERVICE_NAME: 'api'
   _SERVICE_VERSION: '0.0.1'
   _MEMORY: '1Gi'
   _CPUS: '1'

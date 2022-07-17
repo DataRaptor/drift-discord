@@ -22,8 +22,8 @@ import Document, { Head } from 'next/document'
 import { ToastContainer, toast } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'
-require('@solana/wallet-adapter-react-ui/styles.css')
-require('../styles/globals.css')
+import '@solana/wallet-adapter-react-ui/styles.css'
+import '../styles/globals.css'
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const network = WalletAdapterNetwork.Devnet

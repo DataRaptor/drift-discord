@@ -1,7 +1,13 @@
-import { DriftLogo } from "./DriftLogo"
-import { SocialsComponent } from "./SocialsComponent"
+import { DriftLogo } from "./drift-logo"
+import { SocialsComponent } from "./socials-component"
+import { GradientBackground } from "./gradient-background"
+import { ConnectButton } from "./connect-button"
+import { DisconnectButton } from "./disconnect-button"
 
 export {
     DriftLogo,
-    SocialsComponent
+    SocialsComponent,
+    GradientBackground,
+    ConnectButton,
+    DisconnectButton
 }
