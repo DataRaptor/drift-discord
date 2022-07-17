@@ -13,10 +13,13 @@ export const DriftDiscordLogo: React.FC = () => {
         marginTop: '-25px',
         // marginBottom: '30px',
       }}
-    ><a href="http://drift.trade">
-        
-        <img className={styles.logoLinkGlow} src="/drift-logo-circular.png" width="90px" />
-       
+    >
+      <a href="http://drift.trade">
+        <img
+          className={styles.logoLinkGlow}
+          src="/drift-logo-circular.png"
+          width="90px"
+        />
       </a>
       <div>
         <p style={{ color: 'white', marginTop: '30px', fontSize: '1.5em' }}>
@@ -24,7 +27,12 @@ export const DriftDiscordLogo: React.FC = () => {
         </p>
       </div>
       <a href="https://discord.com/invite/fMcZBH8ErM">
-        <img className={styles.logoLinkGlow} src="/discord-logo.png" width="90px" height="auto"/>
+        <img
+          className={styles.logoLinkGlow}
+          src="/discord-logo.png"
+          width="90px"
+          height="auto"
+        />
       </a>
     </div>
   )
