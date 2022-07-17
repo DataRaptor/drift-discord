@@ -4,15 +4,13 @@
   <h1 style="margin-top:20px;">Drift Discord</h1>
 </div>
 
-# Drift Discord
-
 ## Overview
 
 This repository contains the code to link Discord accounts to Solana wallet Pubkeys. 
 
 Click [here](https://client-4fpiw4senq-ue.a.run.app) to view the web app.
 
-Click [here]() to go to the deployed API.
+Click [here](https://api-4fpiw4senq-ue.a.run.app) to go to the deployed API.
 
 ## Services
 
@@ -28,13 +26,17 @@ The following diagram will explain the control flow.
 
 <img src="https://github.com/DataRaptor/drift-discord/blob/03f053ed7e80627935120648662261d060d0d88f/docs/arch.png" width="100%" height="auto"/>
 
-It is fairly simple. Particular attention is given during interactions between the client and api, namely to verify that the user sending requests are who they say they (via discord access token and Solana wallet signatures) for security. Additionally, we encrypt the discord access tokens via `AES` when the tokens are handed back to the client.
+It is fairly simple. Particular attention is given to security during interactions between the client and api, namely to verify that the user sending requests are who they say they (via discord access token and Solana wallet signatures). Additionally, we encrypt the discord access tokens via `AES` when the tokens are handed back to the client though query parameters are secured by SSL, i'd rather not have them in the server logs.
 
 ## CIDC 
 
 The Client and API are built, tagged and stored in our image registry on push to the `main` branch.
 
 The services will deploy to the above links in the Overview section.
+
+## Testing
+
+TODO
 
 ## Notes
 
