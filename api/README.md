@@ -66,6 +66,12 @@ To start the production build run:
 
 The code on the `main` branch is deployed to GCP cloud-run. Configuration files can be found in the `/gcp` directory on the top level of the repo.
 
+## Observability
+
+- Logs: Pino-Express
+- Metrics: Prometheus. Can be found on `/metrics` route.
+- Traces: Cloud platform provides traces.
+
 ## TODO
 
 - Unit and E2E tests.

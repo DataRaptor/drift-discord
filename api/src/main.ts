@@ -11,7 +11,8 @@ import {
       createJsonMiddleware,
       createBodyParserMiddleware,
       createRateLimitMiddleware,
-      createPinoLoggerMiddleware
+      createPromMetricsMiddleware,
+      createPinoLoggerMiddleware,
 } from './middlewares'
 import { PORT } from './config'
 import { getIndexHandler } from './routes/getIndex'
@@ -22,6 +23,7 @@ const main = async () => {
       app.use(createCorsMiddleware())
       app.use(createJsonMiddleware())
       app.use(createBodyParserMiddleware())
+      app.use(createPromMetricsMiddleware())
       app.use(createPinoLoggerMiddleware())
       app.get(
             '/',
