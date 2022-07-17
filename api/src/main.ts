@@ -13,6 +13,7 @@ import {
       createRateLimitMiddleware,
 } from './middlewares'
 import { PORT } from './config'
+import { getIndexHandler } from './routes/getIndex'
 
 const main = async () => {
       await connectDB()
@@ -20,12 +21,28 @@ const main = async () => {
       app.use(createCorsMiddleware())
       app.use(createJsonMiddleware())
       app.use(createBodyParserMiddleware())
-      app.get('/v1/discord_redirect', getDiscordRedirectHandler)
+      app.get(
+            '/',
+            createRateLimitMiddleware(
+                  1 * 60 * 1000,
+                  60 // max 60 requests per 1 min per ip
+            ),
+            getIndexHandler
+      )
+      app.get(
+            '/',
+            createRateLimitMiddleware(
+                  1 * 60 * 1000,
+                  60 // max 60 requests per 1 min per up
+            ),
+            getIndexHandler
+      )
+      app.get('/v1/discord_redirect', getDiscordRedirectHandler) // No rate limit from discord
       app.get(
             '/v1/discord_user',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
-                  60 //  max 60 requests per 1 mins per ip.
+                  60 //  max 60 requests per 1 min per ip.
             ),
             getDiscordUserHandler
       )
@@ -41,12 +58,14 @@ const main = async () => {
             '/v1/discord_user',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
-                  5 // max 5 requests per 1 mins per ip.
+                  5 // max 5 requests per 1 min per ip.
             ),
             postDiscordUserHandler
       )
-      
-      app.listen(PORT, async () => logger.info(`🦾 [Drift-Discord::API] listening on PORT: ${PORT}`))
+
+      app.listen(PORT, async () =>
+            logger.info(`🦾 [Drift-Discord::API] listening on PORT: ${PORT}`)
+      )
 }
 
 main()

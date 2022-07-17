@@ -2,7 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    API_URL: 'https://api-nepzleib2q-ue.a.run.app'
+    API_URL: 'https://api-4fpiw4senq-ue.a.run.app'
   },
   typescript: {
     // !! WARN !!

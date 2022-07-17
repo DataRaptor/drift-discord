@@ -23,5 +23,7 @@ export const verifySignature = (
 
 const aes = new AesEncryption() // Http Transport Encryptor/ Decryptor
 aes.setSecretKey(AES_HTTP_TRANSPORT_SECRET)
-export const encryptAccessToken = (accessToken: string): string => aes.encrypt(accessToken)
-export const decryptAccessToken = (encryptedAccessToken: string): string => aes.decrypt(encryptedAccessToken)
+export const encryptAccessToken = (accessToken: string): string =>
+      aes.encrypt(accessToken)
+export const decryptAccessToken = (encryptedAccessToken: string): string =>
+      aes.decrypt(encryptedAccessToken)

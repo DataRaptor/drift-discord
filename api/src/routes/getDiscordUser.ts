@@ -2,7 +2,6 @@ import express from 'express'
 import { User } from '../models'
 import { logger } from '../services'
 import { verifySignature } from '../utils'
-import { DRIFT_MESSAGE } from '../config'
 
 export const getDiscordUserHandler = async (
       req: express.Request,

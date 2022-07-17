@@ -1,6 +1,4 @@
-
-
 export type RegistrationConfig = {
-    discordGeneratedUrl: string;
-    driftMessage: string;
-};
+      discordGeneratedUrl: string
+      driftMessage: string
+}
