@@ -15,7 +15,7 @@ import {
 import { PORT } from './config'
 
 const main = async () => {
-      await connectDB()
+      // await connectDB()
       const app = express()
       app.use(createCorsMiddleware())
       app.use(createJsonMiddleware())
