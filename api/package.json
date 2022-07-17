@@ -41,7 +41,7 @@
             "dev": "nodemon --config nodemon.json src/main.ts | pino-pretty",
             "dev:debug": "nodemon --config nodemon.json --inspect-brk src/main.ts | pino-pretty",
             "build": "tsc",
-            "start": "node ./build/main.js | pino-pretty",
+            "start": "yarn run create-env && node ./build/main.js | pino-pretty",
             "create-env": "printenv > .env"
       }
 }

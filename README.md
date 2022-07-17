@@ -4,8 +4,6 @@
   <h1 style="margin-top:20px;">Drift Discord</h1>
 </div>
 
-# WIP: Come back later :) 
-
 # Drift Discord
 
 This repository contains the code to link Discord accounts to Solana wallet Pubkeys. 
@@ -29,6 +27,9 @@ We follow the standard OAuth procedure with the caveat that we will need to sign
 
 
 
+
+
+
 ## Notes
 
 - The final working and stable prototype after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
@@ -37,3 +38,4 @@ We follow the standard OAuth procedure with the caveat that we will need to sign
 
 - If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
 
+- The frontend code is slightly messy, but with a little more work should start looking nice. Howver, I think the end user who's using it would like it.

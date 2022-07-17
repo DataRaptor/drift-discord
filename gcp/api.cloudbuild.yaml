@@ -64,8 +64,8 @@ substitutions:
   _DISCORD_API: 'https://discord.com/api/v8'
   _CLIENT_URL: 'https://client-4fpiw4senq-ue.a.run.app'
   _DRIFT_MESSAGE: 'Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain.'
-  _DISCORD_REDIRECT_URI: "TODO AFTER SUCCESSFUL DEPLOY"
-  _DISCORD_GENERATED_URL: "TODO AFTER SUCCESSFUL DEPLOY"
+  _DISCORD_REDIRECT_URI: "https://api-4fpiw4senq-ue.a.run.app/v1/discord_redirect"
+  _DISCORD_GENERATED_URL: "https://discord.com/api/oauth2/authorize?client_id=998151215726723162&redirect_uri=https%3A%2F%2Fapi-4fpiw4senq-ue.a.run.app%2Fv1%2Fdiscord_redirect&response_type=code&scope=identify%20email"
 availableSecrets:
   secretManager:
   - versionName: 'projects/326234874656/secrets/MONGO_CONN_STRING/versions/1'

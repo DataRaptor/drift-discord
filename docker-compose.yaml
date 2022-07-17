@@ -21,19 +21,19 @@ services:
   #   DRIFT_MESSAGE=
   #   CLIENT_URL=
   #   AES_HTTP_TRANSPORT_SECRET=
-  client:
-    container_name: client
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
-    networks:
-      - drift-network
-    restart: always
-    depends_on:
-      - api
-    restart: always
+  # client:
+  #   container_name: client
+  #   build:
+  #     context: ./client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - drift-network
+  #   restart: always
+  #   depends_on:
+  #     - api
+  #   restart: always
 networks:
   drift-network:
     driver: bridge
