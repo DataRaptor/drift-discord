@@ -68,6 +68,7 @@ The code on the `main` branch is deployed to GCP cloud-run. Configuration files 
 
 ## TODO
 
+- Unit and E2E tests
 - Continue to factor out more components until
 - Factor out some of the more complex logic in the `socials-component`
 - Use tailwind css for styling. What we have works fine but if we want to add more to this webapp, we should put our styles in a css framework. 
