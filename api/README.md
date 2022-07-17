@@ -8,7 +8,22 @@ The application is deployed here: `<INSERT_LINK>`
 
 ## Configuration
 
-This services requires a decent amount of configuration through a `.env` file. The following is an example `.env` file with types and descriptions for each variable.
+This services requires a decent amount of configuration through a `.env` file. Here is a `.env` template with fake secrets to help you get up and running.
+
+```
+PORT=8080
+MONGO_CONN_STRING="mongodb+srv://<REDACTED>:<REDACTED>@cluster0.n3ulk.gcp.mongodb.net/<DB_NAME>?retryWrites=true&w=majority"
+DISCORD_API="https://discord.com/api/v8"
+DISCORD_CLIENT_ID="52395252623626"
+DISCORD_SECRET="lFASHIJADGOIGDSKLSDG"
+DISCORD_REDIRECT_URI="http://localhost:8080/v1/discord_redirect"
+DISCORD_GENERATED_URL="https://discord.com/api/oauth2/authorize?client_id=997668769570750524&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fv1%2Fdiscord_redirect&response_type=code&scope=identify%20email"
+DRIFT_MESSAGE="Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain. We're a team of experienced traders and builders from DeFi and traditional finance working together to make this a reality."
+CLIENT_URL="http://localhost:3000"
+AES_HTTP_TRANSPORT_SECRET="11122233344455566677788822244455555555555555555231231321313aaaff" 
+```
+
+The following are the types and descriptions for each variable.
 
 ```
 PORT=[int] // The port that this service will run on.
