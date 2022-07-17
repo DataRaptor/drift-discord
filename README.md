@@ -8,7 +8,7 @@
 
 ## Overview
 
-This repository contains the code to link Discord accounts to Solana wallet Pubkeys for Drift users.
+This repository contains code to link Discord accounts to Solana wallet Pubkeys for Drift users.
 
 Click [here](https://client-4fpiw4senq-ue.a.run.app) to view the web app.
 
@@ -22,7 +22,7 @@ Documentation for each service can be found in the respective directories.
 
 ## UI
 
-The figma document with my initial designs are in the `docs` directory.
+The figma document with my initial designs is in the `docs` directory.
 
 The motive for the design was to provide a intuitive, delightful and feedback rich experience for our users. 
 
@@ -37,19 +37,19 @@ The following diagram will explain the control flow.
 
 We follow the standard OAuth procedure with the caveat that we will need to sign and verify signatures from the wallets both on the server and client when necessary. 
 
-Particular attention is given to security during interactions between the client and api, namely to verify that the user sending requests are who they say they (via discord access token and Solana wallet signatures). 
+Particular attention is given to security during interactions between the client and api, namely to verify that the user sending requests are who they say they are (via discord access token and Solana wallet signatures). 
 
 Additionally, we encrypt the discord access tokens via `AES` when the tokens are handed back to the client (although query parameters are secured by SSL, it's best to not have them in the server logs).
 
-We also make use of the client's localstorage to cache to improve the user experience as signing too many messages in the browser can be cumbersome. 
+We also make use of the client's localstorage for cache to improve the user experience as signing too many messages in the browser can be cumbersome. 
 
 We store the lastSignature in localstorage because of the discord redirect and to serve as an argument on API requests. We revalidate the signature of the user on secure endpoints of the API, particularly on the `POST::discordUser` and `GET::discordUser` endpoints.
 
 We also revalidate these signatures on the client before requests are made in the event that wallet pubkeys have changed or local storage is wiped. We rerequest signing on the client when necessary.
 
-If an old user uses a new wallet and hence publickey we take the approach of storing the new wallet as a new document (as opposed to rewriting). This will allow us to associate publickeys by discords of the same user.
+If an old user uses a new wallet and hence publickey we take the approach of storing the new wallet as a new JSON document (as opposed to rewriting the old). This will allow us to associate the same discord user to multiple publickeys.
 
-Since we're not doing any complex joins I thought it was sufficient to use a Document store as my DB, I chose mongo. For this usecase, this is fine. We're storing a single model and not doing any complex joins.
+Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo. For this usecase, this is fine. We're storing a single model and not doing any complex joins.
 
 ## CIDC 
 
@@ -63,9 +63,9 @@ TODO: We have no testing on either service.
 
 ## Notes
 
-- The final working and stable prototype after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
+- The final working and stable M.V.P after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
 
-- Subsequent commits are refactors of this code to improve the UI, readability, trigger builds and improve the documentation. 
+- CHORE commits after `3c7272f` are refactors of this code to improve the UI, readability, trigger builds and improve the documentation. 
 
 - If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
 
@@ -73,6 +73,6 @@ TODO: We have no testing on either service.
 
 - Need to add a final API call to revoke the token.
 
-- Need to store less data. 
+- Damian mentioned we want to store less data, need to implement that. But that's easy.
 
-- Create a SQL instance and switch to typeorm if time permits. 
+- Create a SQL instance and switch to typeorm if time permits. Get rid of 3rd party ORMs.
