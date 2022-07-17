@@ -4,7 +4,7 @@
   <h1 style="margin-top:20px;">Drift Discord</h1>
 </div>
 
-## WIP: Currently working on fixing deployment. 
+## ✨  Services live, Check it out!
 
 ## Overview
 
