@@ -20,7 +20,7 @@ This repo contains two services, an API and Client.
 
 Documentation for each service can be found in the respective directories. 
 
-## UI
+## UI/UX
 
 The figma document with my initial designs is in the `docs` directory.
 
