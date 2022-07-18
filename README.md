@@ -63,7 +63,7 @@ The Client and API are built, tagged and stored in our image registry on push to
 
 Furthermore, the services will deploy to the links in the `Overview` section.
 
-## Data Considerations
+## User Data Considerations
 
 If an old user uses a new wallet and hence publickey we take the approach of storing the new wallet as a new JSON document (as opposed to rewriting the old). This will allow us to associate the same discord user to multiple publickeys.
 
