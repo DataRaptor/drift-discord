@@ -156,9 +156,10 @@ export const SocialsComponent = () => {
                   signature: lastSignature,
                   accessToken: accessToken as string,
             })
-            if (response.status == 200) fireConfetti()
-            const responseJson = await response.json()
-            triggerToast(responseJson.message)
+            if (response.status == 200){
+                  const responseJson = await response.json()
+                  triggerToast(responseJson.message)
+            }
             removeQueryParamsFromRouter(router, ['access_token'])
       }
 

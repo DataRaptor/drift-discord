@@ -182,6 +182,7 @@
       width: 100%;
       font-size: 1.1em;
       background-image: url('/background-connect-discord.png');
+      box-shadow: 0 5px 10px rgba(164, 255, 247, 0.405);
       font-family: 'Open Sans';
       font-weight: 900;
       background-size: cover;
