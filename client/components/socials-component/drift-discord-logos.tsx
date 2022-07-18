@@ -36,7 +36,7 @@ export const DriftDiscordLogo: React.FC = () => {
                         <img
                               className={styles.logoLinkGlow}
                               src="/discord-logo.png"
-                              width="90px"
+                              width="85px"
                               height="auto"
                         />
                   </a>
