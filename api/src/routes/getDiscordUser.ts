@@ -19,7 +19,7 @@ export const getDiscordUserHandler = async (
                               b.created - a.created
                         }
                   )
-                  // Each public_key is associated with a unique document in the db
+                  // Each publickey is associated with a unique document in the db
                   // However a user may choose to use multiple discord accounts for a single
                   // publickey. In this case we must take the latest user document
                   const user = queryUsers[queryUsers.length - 1]
