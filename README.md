@@ -37,7 +37,7 @@ The following diagram will explain the control flow.
 
 ### OAuth
  
-We follow the standard OAuth procedure with the caveat that we will need to sign and verify signatures from the wallets both on the server and client when necessary. 
+We follow the standard OAuth procedure with the caveat that we will need to sign message on the client and verify signatures on the server and client when necessary. 
 
 ### Security
 
