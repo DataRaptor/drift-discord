@@ -133,7 +133,7 @@
       -webkit-text-size-adjust: 100%;
       font-family: 'Open Sans';
       line-height: 1.3em;
-      font-size: 16px;
+      font-size: 15.5px;
       -webkit-box-direction: normal;
       box-sizing: border-box;
       color: inherit;
@@ -194,15 +194,16 @@
 .disconnectWalletButton:hover {
       cursor: pointer;
       box-shadow: 1px 1px black;
-      transition: 1s;
+      transition: color 0.5s ease-in-out;
 }
 
 .connectDiscordButton {
       border-radius: 0.56em;
       padding: 12px;
-      padding-left: 13px;
-      padding-right: 13px;
-      width: 100%;
+      /* padding-left: 13px;
+      padding-right: 13px; */
+      width: 105%;
+      left: 5%;
       font-size: 1.1em;
       background-image: url('https://assets.website-files.com/611580035ad59b20437eb024/616f998c4fdccc1e0de4e5a1_btn%20background%20(1).png');
       font-family: 'Open Sans';
@@ -211,16 +212,23 @@
       color: black;
       border: 0px;
       transition: 1s;
+      -webkit-transition: 1s;
+      -moz-transition: 1s;
+      -o-transition: 1s;
 }
 
 .connectDiscordButton:hover {
       cursor: pointer;
       box-shadow: 0 10px 20px rgba(216, 164, 255, 0.405);
       transition: 1s;
+      -webkit-transition: 1s;
+      -moz-transition: 1s;
+      -o-transition: 1s;
       height: 100%;
       color: white;
       border: white;
       background-image: url('/background-blur.png');
+      
 }
 
 .row {
