@@ -18,7 +18,7 @@ Click [here](https://api-4fpiw4senq-ue.a.run.app) to go to the deployed API.
 
 This repo contains two services, an API and Client.
 
-Documentation for each service can be found in the respective directories. 
+Documentation for each service can be found in the respective directories.
 
 ## UI/UX
 
@@ -102,9 +102,11 @@ export type GDPRCensoredDiscordUserData = {
 
 ## Testing
 
-TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both services have to be tested if they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests though...
+TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both services have to be tested if they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests... 
 
-## Notes
+## Miscellaneous Notes
+
+- Godspeed on Drift V2 my friend. You guys are doing something awesome. 
 
 - I just checked the discord... What is a hentai kitty, should I be scared and do I want to know? 
 
@@ -118,4 +120,4 @@ TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both serv
 
 - Since I am on the only one in this repo, I typically commit right to `main` despite the rebuilds. No branches / pull requests needed.
 
-- Create a SQL instance and switch to typeorm if time permits. Get rid of 3rd party ORMs.
+- TODO: Create a SQL instance and switch to typeorm if time permits. Also get rid of 3rd party ORMs.
