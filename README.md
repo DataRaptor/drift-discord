@@ -68,11 +68,11 @@ Furthermore, the services will deploy to the links in the `Overview` section.
 If an old user uses a new wallet and hence publickey we take the approach of storing the new wallet as a new JSON document (as opposed to rewriting the old). This will allow us to associate the same discord user to multiple publickeys.
 
 We would like to capture as much data as we can about our users and adhere to the law. We censor data using locale to comply with GDPR. Within the `/api/config` we define a constant: 
-```
+```ts
 export const GDPR_EXEMPT_LOCALES: string[] = ["en-US"]
 ```
 of all the `locales` that we would like to collect the full payload of discord from. Locales within this list will be saved to the db with the following discord data: 
-```
+```ts
 export type DiscordUserData = {
       username: string | null;
       avatar: string | null;
@@ -90,7 +90,7 @@ export type DiscordUserData = {
 }
 ```
 Users from locales outside of this list will have a reduced schema of the form: 
-```
+```ts
 export type GDPRCensoredDiscordUserData = {
       username: string | null;
       discriminator: string | null;
