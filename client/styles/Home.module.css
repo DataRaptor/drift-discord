@@ -4,8 +4,8 @@
 }
 
 .logoHeader {
-      width: 60%;
-      margin-left: 18%;
+      width: 55%;
+      margin-left: 24%;
       z-index: 2;
 }
 
@@ -51,7 +51,8 @@
       box-shadow: 1px 1px black;
       transition: 1s;
       border-radius: 10px;
-      box-shadow: 0px 5px 15px rgba(216, 164, 255, 0.405);
+      box-shadow: 0px 0px 15px rgba(216, 164, 255, 0.405);
+      -webkit-box-shadow: 0 0 15px  rgba(216, 164, 255, 0.405);
       z-index: 2;
 }
 
