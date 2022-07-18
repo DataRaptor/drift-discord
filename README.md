@@ -100,9 +100,11 @@ export type GDPRCensoredDiscordUserData = {
 
 ## Testing
 
-TODO: We have no testing on either service.
+TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both services have to be tested if they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests though. 
 
 ## Notes
+
+- What is a hentai kitty and do I want to know? 
 
 - The final working and stable M.V.P after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
 
