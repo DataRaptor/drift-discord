@@ -202,6 +202,7 @@ export const SocialsComponent = () => {
                   setHeaderMessage(
                         'Congratulations! Your Discord account is linked to Drift'
                   )
+                  fireConfetti()
             }
       }, [getDiscordUserResponse.data])
 
