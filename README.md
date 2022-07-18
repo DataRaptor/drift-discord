@@ -33,7 +33,7 @@ For styling I drew inspiration from the Drift homepage.
 
 The following diagram will explain the control flow. 
 
-<img src="https://github.com/DataRaptor/drift-discord/blob/8db844ca218657303af1f8a8491a3d3633c90272/docs/arch.png" width="100%" height="auto"/>
+<img src="https://github.com/DataRaptor/drift-discord/blob/1df8972e3421649ed5b7c59a8c69c268d3e911fe/docs/arch.png" width="100%" height="auto"/>
 
 ### OAuth
  
