@@ -180,7 +180,7 @@
       padding-right: 13px;
       width: 100%;
       font-size: 1.1em;
-      background-image: url('/background-connect-discord.png'); 
+      background-image: url('/background-connect-discord.png');
       font-family: 'Open Sans';
       font-weight: 900;
       background-size: cover;
@@ -197,8 +197,6 @@
       color: white;
       border: white;
       background-image: url('/background-blur.png');
-
-      
 }
 
 .row {

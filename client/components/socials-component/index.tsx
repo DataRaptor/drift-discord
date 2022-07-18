@@ -78,6 +78,9 @@ export const SocialsComponent = () => {
             const executeRefetchSignature = async () => {
                   setDiscordUser(null)
                   setDiscordUserFetched(false)
+                  setHeaderMessage(
+                        'Connect your Solana wallet to get started with Drift Discord'
+                  )
                   if (connected && publicKey) {
                         var lastSignature = getSignatureFromLocalStorage()
                         if (!lastSignature) {
@@ -100,10 +103,25 @@ export const SocialsComponent = () => {
       }, [connected, publicKey, driftMessage])
 
       const onConnectDiscordClick = async () => {
-            const lastSignatureString = getSignatureFromLocalStorage()
-            if (!connected) return // break if wallet not connected
+            const message = new TextEncoder().encode(driftMessage) as Uint8Array
+            const lastSignature = getSignatureFromLocalStorage()
+            if (!connected) return // break if wallet not connected.
             if (!publicKey) return // break iff no publickey.
-            if (!lastSignatureString) return // break iff wallet has not signed.
+            if (
+                  !lastSignature ||
+                  !sign.detached.verify(
+                        message,
+                        bs58.decode(lastSignature),
+                        publicKey.toBytes()
+                  )
+            ) {
+                  // If the user attempts to click the discord button before they sign the message.
+                  triggerToast(
+                        'You must sign the drift message with your wallet before connecting discord!'
+                  )
+                  signAndPutSignatureinLocalStorage()
+                  return // break iff wallet has not signed.
+            }
             router.push(discordGeneratedUrl)
       }
 
