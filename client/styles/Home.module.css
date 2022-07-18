@@ -19,13 +19,26 @@
       text-transform: capitalize;
 }
 
-.logoLinkGlow {
+.discordLogoLinkGlow {
       z-index: 2;
       transition: 1s;
       border-radius: 50%;
 }
 
-.logoLinkGlow:hover {
+.discordLogoLinkGlow:hover {
+      cursor: pointer;
+      transition: 0.5s;
+      width: 88px;
+      box-shadow: 0 10px 20px rgba(216, 164, 255, 0.405);
+}
+
+.driftLogoLinkGlow {
+      z-index: 2;
+      transition: 1s;
+      border-radius: 50%;
+}
+
+.driftLogoLinkGlow:hover {
       cursor: pointer;
       transition: 0.5s;
       width: 95px;

@@ -16,7 +16,7 @@ export const DriftDiscordLogo: React.FC = () => {
             >
                   <a href="http://drift.trade">
                         <img
-                              className={styles.logoLinkGlow}
+                              className={styles.driftLogoLinkGlow}
                               src="/drift-logo-circular.png"
                               width="90px"
                         />
@@ -34,7 +34,7 @@ export const DriftDiscordLogo: React.FC = () => {
                   </div>
                   <a href="https://discord.com/invite/fMcZBH8ErM">
                         <img
-                              className={styles.logoLinkGlow}
+                              className={styles.discordLogoLinkGlow}
                               src="/discord-logo.png"
                               width="81px"
                               height="auto"
