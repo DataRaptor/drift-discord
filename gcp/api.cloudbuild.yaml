@@ -33,7 +33,7 @@ steps:
       - '${_MAX_INSTANCES}'
       - '--allow-unauthenticated'
       # - '--env-vars-file=/app/.env'
-      - '--set-env-vars=LOG_LEVEL=${LOG_LEVEL}'
+      - '--set-env-vars=LOG_LEVEL=${_LOG_LEVEL}'
       - '--set-env-vars=DISCORD_API=${_DISCORD_API}'
       - '--set-env-vars=CLIENT_URL=${_CLIENT_URL}'
       - '--set-env-vars=DRIFT_MESSAGE=${_DRIFT_MESSAGE}'
