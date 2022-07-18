@@ -49,7 +49,7 @@ Additionally, we encrypt the discord access tokens via `AES` when the tokens are
 
 We also make use of the client's localstorage for cache to improve the user experience as signing too many messages in the browser can be cumbersome. 
 
-We store the lastSignature in localstorage because of the discord redirect and to serve as an argument on API requests. We revalidate the signature of the user on secure endpoints of the API, particularly on the `POST::discordUser` and `GET::discordUser` endpoints.
+We store the lastSignature in localstorage because of the discord redirect and to serve as an argument on API requests. We revalidate the signature of the user on secure routes of the API, particularly on the `POST::discordUser` and `GET::discordUser` endpoints.
 
 We also revalidate these signatures on the client before requests are made in the event that wallet pubkeys have changed or local storage is wiped. We rerequest signing on the client when necessary.
 
