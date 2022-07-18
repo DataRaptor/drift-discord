@@ -30,9 +30,9 @@ export const getDiscordUserHandler = async (
                         error: null,
                   })
             } else {
-                  res.status(200).json({
+                  res.status(500).json({
                         ok: true,
-                        message: 'Connect your discord to get all of the benefits of Drift discord.',
+                        message: 'Invalid wallet signature',
                         error: null,
                   })
             }
