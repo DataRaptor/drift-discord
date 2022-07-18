@@ -1,8 +1,8 @@
 require('dotenv').config()
-import { logger } from '../services'
 
 // Non-secrets
-export const PORT = process.env.PORT || 8080
+export const PORT: string | number = process.env.PORT || 8080
+export const LOG_LEVEL: string = process.env.LOG_LEVEL || "debug"
 export const DISCORD_API: string = process.env.DISCORD_API || ''
 export const CLIENT_URL: string = process.env.CLIENT_URL || ''
 export const DRIFT_MESSAGE: string =

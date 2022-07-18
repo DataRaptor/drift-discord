@@ -1,10 +1,10 @@
 import pino from 'pino'
+import { LOG_LEVEL } from '../config'
 
 const options = {
       colorize: true,
       translateTime: true,
-      ignore: 'pid,hostname',
-      singleLine: false,
+      singleLine: true,
 }
 
 const logger = pino({
@@ -13,5 +13,7 @@ const logger = pino({
             options: options,
       },
 })
+
+logger.level = LOG_LEVEL
 
 export { logger }

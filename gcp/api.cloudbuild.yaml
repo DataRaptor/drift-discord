@@ -40,6 +40,7 @@ steps:
       - '--set-env-vars=DISCORD_GENERATED_URL=${_DISCORD_GENERATED_URL}'
       - '--set-secrets=MONGO_CONN_STRING=MONGO_CONN_STRING:latest,DISCORD_CLIENT_ID=DISCORD_CLIENT_ID:latest,DISCORD_SECRET=DISCORD_SECRET:latest,AES_HTTP_TRANSPORT_SECRET=AES_HTTP_TRANSPORT_SECRET:latest'
     env:
+      - 'LOG_LEVEL=${_LOG_LEVEL}'
       - 'DISCORD_API=${_DISCORD_API}'
       - 'CLIENT_URL=${_CLIENT_URL}'
       - 'DRIFT_MESSAGE=${_DRIFT_MESSAGE}'
@@ -61,6 +62,7 @@ substitutions:
   _CPUS: '1'
   _CONCURRENCY: '100'
   _MAX_INSTANCES: '2'
+  _LOG_LEVEL: 'warn'
   _DISCORD_API: 'https://discord.com/api/v8'
   _CLIENT_URL: 'https://client-4fpiw4senq-ue.a.run.app'
   _DRIFT_MESSAGE: 'Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain.'

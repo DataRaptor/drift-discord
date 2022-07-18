@@ -3,7 +3,8 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import rateLimit from 'express-rate-limit'
 import promMid from 'express-prometheus-middleware'
-import pino from "express-pino-logger"
+import expressPino from "express-pino-logger"
+import { logger } from "../services/logger"
 
 export const createCorsMiddleware = () => cors()
 
@@ -14,7 +15,9 @@ export const createBodyParserMiddleware = () =>
             extended: true,
       })
 
-export const createPinoLoggerMiddleware = () => pino()
+export const createPinoLoggerMiddleware = () => expressPino({
+      logger: logger
+})
 
 export const createPromMetricsMiddleware = () => promMid({
       metricsPath: '/metrics',
