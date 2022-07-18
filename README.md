@@ -63,6 +63,8 @@ The Client and API are built, tagged and stored in our image registry on push to
 
 Furthermore, the services will deploy to the links in the `Overview` section.
 
+I use GCP because I refuse to pay for prime and have an AWS account. The services are containerized so deploy them where you want to if you have an account and those serverless.yaml configs.
+
 ## User Data Considerations
 
 If an old user uses a new wallet and hence publickey we take the approach of storing the new wallet as a new JSON document (as opposed to rewriting the old). This will allow us to associate the same discord user to multiple publickeys.
@@ -100,11 +102,13 @@ export type GDPRCensoredDiscordUserData = {
 
 ## Testing
 
-TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both services have to be tested if they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests though. 
+TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both services have to be tested if they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests though...
 
 ## Notes
 
-- What is a hentai kitty and do I want to know? 
+- I just checked the discord... What is a hentai kitty, should I be scared and do I want to know? 
+
+- Both services could use better `types`. It would be good practice but typing everything is time expensive. 
 
 - The final working and stable M.V.P after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
 
