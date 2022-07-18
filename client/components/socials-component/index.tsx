@@ -76,6 +76,8 @@ export const SocialsComponent = () => {
             if (!registrationConfigFetched) return // break if we have not fetched registration yet
             const message = new TextEncoder().encode(driftMessage) as Uint8Array
             const executeRefetchSignature = async () => {
+                  setDiscordUser(null)
+                  setDiscordUserFetched(false)
                   if (connected && publicKey) {
                         var lastSignature = getSignatureFromLocalStorage()
                         if (!lastSignature) {
