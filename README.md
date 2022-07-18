@@ -35,14 +35,17 @@ The following diagram will explain the control flow.
 
 <img src="https://github.com/DataRaptor/drift-discord/blob/03f053ed7e80627935120648662261d060d0d88f/docs/arch.png" width="100%" height="auto"/>
 
-***OAuth***
+### OAuth
+ 
 We follow the standard OAuth procedure with the caveat that we will need to sign and verify signatures from the wallets both on the server and client when necessary. 
+
+### Security
 
 Particular attention is given to security during interactions between the client and api, namely to verify that the user sending requests are who they say they are (via discord access token and Solana wallet signatures). 
 
 Additionally, we encrypt the discord access tokens via `AES` when the tokens are handed back to the client (although query parameters are secured by SSL, it's best to not have them in the server logs).
 
-***Message Signatures and Storage***
+### Signatures and Local Storage
 
 We also make use of the client's localstorage for cache to improve the user experience as signing too many messages in the browser can be cumbersome. 
 
@@ -50,7 +53,7 @@ We store the lastSignature in localstorage because of the discord redirect and t
 
 We also revalidate these signatures on the client before requests are made in the event that wallet pubkeys have changed or local storage is wiped. We rerequest signing on the client when necessary.
 
-***Db***
+### DB
 
 Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend easily. 
 
