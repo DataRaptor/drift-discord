@@ -37,7 +37,7 @@ export const postDiscordUserHandler = async (
                                           `A user with public key: ${publicKey} was created.`
                                     )
                               )
-                        await revokeDiscordAccessToken(accessToken) // finally revoke the access token
+                        await revokeDiscordAccessToken(accessToken)
                         res.status(200).json({
                               ok: true,
                               message: "Welcome! You've successfully linked your discord to Drift.",

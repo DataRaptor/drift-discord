@@ -4,7 +4,7 @@
   <h1 style="margin-top:20px;">Drift Discord</h1>
 </div>
 
-## ✨  Services live. Check it out!
+## ✨  Services live. [Check it out!](https://client-4fpiw4senq-ue.a.run.app)
 
 ## Overview
 
@@ -49,7 +49,7 @@ We also revalidate these signatures on the client before requests are made in th
 
 If an old user uses a new wallet and hence publickey we take the approach of storing the new wallet as a new JSON document (as opposed to rewriting the old). This will allow us to associate the same discord user to multiple publickeys.
 
-Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo. For this usecase, this is fine. We're storing a single model and not doing any complex joins.
+Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend easily. 
 
 ## CIDC 
 
