@@ -55,7 +55,7 @@ We also revalidate these signatures on the client before requests are made in th
 
 ### DB
 
-Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend easily. 
+Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend easily with some native queries or typeorm. 
 
 ## CIDC 
 
@@ -63,7 +63,7 @@ The Client and API are built, tagged and stored in our image registry on push to
 
 Furthermore, the services will deploy to the links in the `Overview` section.
 
-I use GCP because I refuse to pay for prime and have an AWS account. The services are containerized so deploy them where you want to if you have an account and those serverless.yaml configs.
+I use Google Cloud Platform because I refuse to pay for prime and have an AWS account. The services are containerized so deploy them where you want, iff you have an AWS account and those juicy serverless.yaml configs. 
 
 ## User Data Considerations
 
