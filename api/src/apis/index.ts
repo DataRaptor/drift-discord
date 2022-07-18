@@ -47,7 +47,9 @@ export const getDiscordUserData = async (accessToken: string): Promise<any> => {
       return {}
 }
 
-export const revokeDiscordAccessToken = async(accessToken: string): Promise<boolean> => {
+export const revokeDiscordAccessToken = async (
+      accessToken: string
+): Promise<boolean> => {
       const urlSearchParams = new url.URLSearchParams({
             client_id: DISCORD_CLIENT_ID,
             client_secret: DISCORD_SECRET,
@@ -59,7 +61,7 @@ export const revokeDiscordAccessToken = async(accessToken: string): Promise<bool
             {
                   headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                  }
+                  },
             }
       )
       if (revokeResponse.status == 200) return true

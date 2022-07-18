@@ -3,7 +3,7 @@ import { User } from '../models'
 import { logger } from '../services/logger'
 import { verifySignature, decryptAccessToken } from '../utils'
 import { getDiscordUserData, revokeDiscordAccessToken } from '../apis'
-import { CensoredDiscordUserData, DiscordUserData } from "../types"
+import { CensoredDiscordUserData, DiscordUserData } from '../types'
 import { DRIFT_MESSAGE } from '../config'
 import { censorDiscordUserDataByLocale } from '../libs'
 
@@ -23,7 +23,10 @@ export const postDiscordUserHandler = async (
                         ...discordUserData,
                   })
                   if (query.length == 0) {
-                        const censoredDiscordUserData: CensoredDiscordUserData | DiscordUserData = censorDiscordUserDataByLocale(discordUserData) 
+                        const censoredDiscordUserData:
+                              | CensoredDiscordUserData
+                              | DiscordUserData =
+                              censorDiscordUserDataByLocale(discordUserData)
                         const user: typeof User = new User({
                               public_key: publicKey,
                               signature: signature,
@@ -41,7 +44,7 @@ export const postDiscordUserHandler = async (
                         res.status(200).json({
                               ok: true,
                               message: "Welcome! You've successfully linked your discord to Drift.",
-                              error: null
+                              error: null,
                         })
                   } else {
                         logger.warn(
@@ -50,21 +53,21 @@ export const postDiscordUserHandler = async (
                         res.status(200).json({
                               ok: false,
                               message: 'Your discord is already registed with Drift. Welcome back!',
-                              error: null
+                              error: null,
                         })
                   }
             } else {
                   res.status(500).send({
                         ok: false,
                         message: 'Invalid Signature for Public Key',
-                        error: `A user with ${publicKey} attempted to use an incorrect signature`
+                        error: `A user with ${publicKey} attempted to use an incorrect signature`,
                   })
             }
       } catch (error) {
             res.status(500).json({
                   ok: false,
                   message: 'Something went wrong. Please try again.',
-                  error: error.message
+                  error: error.message,
             })
       }
 }

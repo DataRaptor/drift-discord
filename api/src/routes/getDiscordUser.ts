@@ -11,11 +11,18 @@ export const getDiscordUserHandler = async (
             const signature = req.query.signature as string
             const publicKey = req.query.publicKey as string
             if (verifySignature(publicKey, signature)) {
-                  const query = await User.find({
+                  var queryUsers = await User.find({
                         public_key: publicKey,
                   })
-                  // Take the last document found. We should instead add a datetime to each user model but no time left...
-                  const user = query[query.length - 1]
+                  queryUsers = queryUsers.sort(
+                        (a: typeof User, b: typeof User) => {
+                              b.created - a.created
+                        }
+                  )
+                  // Each public_key is associated with a unique document in the db
+                  // However a user may choose to use multiple discord accounts for a single
+                  // publickey. In this case we must take the latest user document
+                  const user = queryUsers[queryUsers.length - 1]
                   res.status(200).json({
                         ok: true,
                         message: 'Welcome back!',
@@ -33,7 +40,7 @@ export const getDiscordUserHandler = async (
             res.status(500).json({
                   ok: false,
                   message: 'Could not get user data',
-                  error: error.message
+                  error: error.message,
             })
       }
 }

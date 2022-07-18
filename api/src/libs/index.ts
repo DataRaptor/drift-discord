@@ -1,3 +1,3 @@
-import { censorDiscordUserDataByLocale } from "./censor"
+import { censorDiscordUserDataByLocale } from './censor'
 
 export { censorDiscordUserDataByLocale }

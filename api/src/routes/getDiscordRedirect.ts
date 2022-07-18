@@ -14,7 +14,9 @@ export const getDiscordRedirectHandler = async (
             const encryptedAccessToken: string = encryptAccessToken(accessToken)
             res.redirect(`${CLIENT_URL}?access_token=${encryptedAccessToken}`)
       } catch (error) {
-            logger.error(`discord redirect execution failed with error: ${error}`)
+            logger.error(
+                  `discord redirect execution failed with error: ${error}`
+            )
             res.redirect(CLIENT_URL)
       }
 }

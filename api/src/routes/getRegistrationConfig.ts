@@ -16,14 +16,14 @@ export const getRegistrationConfigHandler = async (
                   ok: true,
                   message: 'success',
                   registrationConfig: registrationConfig,
-                  error: null
+                  error: null,
             })
       } catch (error) {
             res.status(500).json({
                   ok: false,
                   message: 'Could not get registration config',
                   registrationConfig: null,
-                  error: error.message
+                  error: error.message,
             })
       }
 }

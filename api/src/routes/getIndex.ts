@@ -18,7 +18,7 @@ export const getIndexHandler = async (
                   serviceName: '[drift-discord:api]',
                   version: '1',
                   message: 'offline',
-                  error: error.message
+                  error: error.message,
             })
       }
 }

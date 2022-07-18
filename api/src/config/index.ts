@@ -2,7 +2,7 @@ require('dotenv').config()
 
 // Non-secrets
 export const PORT: string | number = process.env.PORT || 8080
-export const LOG_LEVEL: string = process.env.LOG_LEVEL || "debug"
+export const LOG_LEVEL: string = process.env.LOG_LEVEL || 'debug'
 export const DISCORD_API: string = process.env.DISCORD_API || ''
 export const CLIENT_URL: string = process.env.CLIENT_URL || ''
 export const DRIFT_MESSAGE: string =
@@ -21,4 +21,4 @@ export const AES_HTTP_TRANSPORT_SECRET: string =
       '11122233344455566677788822244455555555555555555231231321313aaaff'
 
 // Constants
-export const GDPR_EXEMPT_LOCALES: string[] = ["en-US"] // Let's start with only the US but this list can be expanded
+export const GDPR_EXEMPT_LOCALES: string[] = ['en-US'] // Let's start with only the US but this list can be expanded
