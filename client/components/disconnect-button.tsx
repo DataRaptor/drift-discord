@@ -10,8 +10,8 @@ export const DisconnectButton = () => {
       const onDisconnectClick = async () => {
             await disconnect()
             triggerToast('See you next time! Come back soon.')
-            await sleep(2000) // Sleep for 2.5 seconds before reloading...
-            router.reload() // unfortunately we need to do this to get back the text, or else struggle with inheritance / make one componet.
+            await sleep(2000) // Sleep for 2.0 seconds before reloading...
+            router.reload() // unfortunately we need to do this to get back the text, or else struggle with inheritance / a large component / globalstate. It should eventually be removed though... Kinda Jank..
       }
 
       return (
