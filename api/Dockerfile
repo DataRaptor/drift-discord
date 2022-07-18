@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN npm install 
+RUN npm install --force --legacy-peer-deps
 
 RUN npm run build
 

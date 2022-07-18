@@ -57,6 +57,39 @@ The Client and API are built, tagged and stored in our image registry on push to
 
 Furthermore, the services will deploy to the links in the `Overview` section.
 
+## Data Considerations
+
+We would like to capture as much data as we can about our users and adhere to the law. We censor data using locale to comply with GDPR. Within the `/api/config` we define a constant: 
+```
+export const GDPR_EXEMPT_LOCALES: string[] = ["en-US"]
+```
+of all the `locales` that we would like to collect the full payload of discord from. Locales within this list will be saved to the db with the following discord data: 
+
+export type DiscordUserData = {
+      username: string | null;
+      avatar: string | null;
+      avatar_decoration: string | null;
+      discriminator: string | null;
+      public_flags: number | null;
+      flags: number | null;
+      banner: string | null;
+      banner_color: string | null;
+      accent_color: string | null;
+      locale: string | null;
+      mfa_enabled: boolean | null;
+      email: string | null;
+      verified: boolean | null;
+}
+
+Users from locales outside of this list will have a reduced schema of the form: 
+```
+export type GDPRCensoredDiscordUserData = {
+      username: string | null;
+      discriminator: string | null;
+}
+```
+
+
 ## Testing
 
 TODO: We have no testing on either service.
@@ -70,7 +103,5 @@ TODO: We have no testing on either service.
 - If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
 
 - Since I am on the only one in this repo, I typically commit right to `main` despite the rebuilds. No branches / pull requests needed.
-
-- Damian mentioned we want to store less data, need to implement that. But that's easy.
 
 - Create a SQL instance and switch to typeorm if time permits. Get rid of 3rd party ORMs.

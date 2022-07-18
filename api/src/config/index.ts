@@ -19,3 +19,6 @@ export const DISCORD_SECRET: string = process.env.DISCORD_SECRET || ''
 export const AES_HTTP_TRANSPORT_SECRET: string =
       process.env.AES_HTTP_TRANSPORT_SECRET ||
       '11122233344455566677788822244455555555555555555231231321313aaaff'
+
+// Constants
+export const GDPR_EXEMPT_LOCALES: string[] = ["en-US"] // Let's start with only the US but this list can be expanded

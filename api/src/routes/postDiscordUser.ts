@@ -3,7 +3,9 @@ import { User } from '../models'
 import { logger } from '../services/logger'
 import { verifySignature, decryptAccessToken } from '../utils'
 import { getDiscordUserData, revokeDiscordAccessToken } from '../apis'
+import { CensoredDiscordUserData, DiscordUserData } from "../types"
 import { DRIFT_MESSAGE } from '../config'
+import { censorDiscordUserDataByLocale } from '../libs'
 
 export const postDiscordUserHandler = async (
       req: express.Request,
@@ -21,13 +23,12 @@ export const postDiscordUserHandler = async (
                         ...discordUserData,
                   })
                   if (query.length == 0) {
-                        // We opt to save the discord data everytime the user comes back to us with a new public_key
-                        // So that we can later associate public_keys by discord_ids. Hence this query.
+                        const censoredDiscordUserData: CensoredDiscordUserData | DiscordUserData = censorDiscordUserDataByLocale(discordUserData) 
                         const user: typeof User = new User({
                               public_key: publicKey,
                               signature: signature,
                               message: DRIFT_MESSAGE,
-                              ...discordUserData,
+                              ...censoredDiscordUserData,
                         })
                         await user
                               .save()
