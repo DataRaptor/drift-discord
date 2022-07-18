@@ -140,6 +140,7 @@
             linear-gradient(103deg, #f6f063, transparent 27%),
             linear-gradient(111deg, #ff3873 23%, #711eff 55%, #3fe5ff 83%);
       font-size: 1.1em;
+      line-height: 1.3em;
 }
 
 .h4GradientBountyHeadlineDisconnect {
@@ -221,7 +222,7 @@
       display: flex;
       flex: 1;
       padding: 2rem 0;
-      border-top: 1px solid grey;
+      border-top: 1px solid rgba(128, 128, 128, 0.131);
       justify-content: center;
       align-items: center;
 }
