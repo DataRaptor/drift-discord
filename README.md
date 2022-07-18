@@ -108,8 +108,6 @@ TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both serv
 
 - Godspeed on Drift V2 my friend. You guys are doing something awesome. 
 
-- I just checked the discord... What is a hentai kitty, should I be scared and do I want to know? 
-
 - Both services could use better `types`. It would be good practice but typing everything is time expensive. 
 
 - The final working and stable M.V.P after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
