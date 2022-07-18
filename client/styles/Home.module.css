@@ -52,7 +52,7 @@
       transition: 1s;
       border-radius: 10px;
       box-shadow: 0px 0px 15px rgba(216, 164, 255, 0.405);
-      -webkit-box-shadow: 0 0 15px  rgba(216, 164, 255, 0.405);
+      -webkit-box-shadow: 0px 0px 15px  rgba(216, 164, 255, 0.405);
       z-index: 2;
 }
 
@@ -219,7 +219,8 @@
 
 .connectDiscordButton:hover {
       cursor: pointer;
-      box-shadow: 0 10px 20px rgba(216, 164, 255, 0.405);
+      box-shadow: 0px 10px 40px rgba(216, 164, 255, 0.605);
+      -webkit-box-shadow: 0px 10px 40px rgba(216, 164, 255, 0.605);
       transition: 1s;
       -webkit-transition: 1s;
       -moz-transition: 1s;
