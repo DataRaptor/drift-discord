@@ -31,22 +31,16 @@ const UserComponent = ({ discordUsername }: any) => {
 
 export const SocialsComponent = () => {
       const router = useRouter()
-
       const [headerMessage, setHeaderMessage] = useState(
             'Connect your Solana wallet to get started with Drift Discord'
       )
-
       const [driftMessage, setDriftMessage] = useState('')
       const [discordGeneratedUrl, setDiscordGeneratedUrl] = useState('')
-
       const [discordUser, setDiscordUser] = useState(null)
-
       const [discordUserFetched, setDiscordUserFetched] = useState(false)
       const [registrationConfigFetched, setRegistrationConfigFetched] =
             useState(false)
       const { connected, publicKey, signMessage } = useWallet()
-
-      const [isSigned, setIsSigned] = useState(false)
 
       const getSignatureFromLocalStorage = (): string => {
             var lastSignature: string | null =
@@ -156,7 +150,7 @@ export const SocialsComponent = () => {
                   signature: lastSignature,
                   accessToken: accessToken as string,
             })
-            if (response.status == 200){
+            if (response.status == 200) {
                   const responseJson = await response.json()
                   triggerToast(responseJson.message)
             }
