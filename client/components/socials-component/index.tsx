@@ -175,7 +175,7 @@ export const SocialsComponent = () => {
             'GET::/v1/discord_user',
             executeGetDiscordUser,
             {
-                  refreshInterval: 100, // Execute every 0.1 seconds. Note that requests will not be made if the discordUserData has already been fetched. This will make our page highly responsive.
+                  refreshInterval: 100, // Execute every 0.1 seconds. Note that requests will not be made if the discordUserData has already been fetched.
             }
       )
 
@@ -183,7 +183,7 @@ export const SocialsComponent = () => {
             'GET::/v1/registration_config',
             executeGetRegistrationConfig,
             {
-                  refreshInterval: 100, // Execute every 0.1 seconds. We may push a new `DRIFT_MESSAGE` to the api, in these cases 30 seconds seems acceptable. This will make our page highly responsive.
+                  refreshInterval: 100, // Execute every 0.1 seconds. Note requests will not execute if already fetched. 
             }
       )
 
@@ -211,6 +211,7 @@ export const SocialsComponent = () => {
       }, [getRegistrationConfigResponse.data])
 
       return (
+            <div className={styles.socialsContainerWrapper}>
             <div className={styles.socialsContainer}>
                   <div className={styles.headerText}>{headerMessage}</div>
                   <div
@@ -259,6 +260,7 @@ export const SocialsComponent = () => {
                               discordUsername={discordUser?.username}
                         />
                   )}
+            </div>
             </div>
       )
 }
