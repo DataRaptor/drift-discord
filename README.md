@@ -55,7 +55,7 @@ We also revalidate these signatures on the client before requests are made in th
 
 ### DB
 
-Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend easily with some native queries or typeorm. 
+Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend quickly with some native queries or typeorm. 
 
 ## CIDC 
 
