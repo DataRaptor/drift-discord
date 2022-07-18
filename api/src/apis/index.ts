@@ -32,7 +32,7 @@ export const exchangeDiscordAccessToken = async (
             const { access_token: accessToken } = tokenResponse.data
             return accessToken
       }
-      logger.error(`Could not revoke discord access token`)
+      logger.error(`Could not get discord access token`)
       return null
 }
 
