@@ -3,7 +3,7 @@ import { User } from '../models'
 import { logger } from '../services/logger'
 import { verifySignature, decryptAccessToken } from '../utils'
 import { getDiscordUserData, revokeDiscordAccessToken } from '../apis'
-import { CensoredDiscordUserData, DiscordUserData } from '../types'
+import { GDPRCensoredDiscordUserData, GDPRExemptDiscordUserData, DiscordUserData } from '../types'
 import { DRIFT_MESSAGE } from '../config'
 import { censorDiscordUserDataByLocale } from '../libs'
 
@@ -24,8 +24,8 @@ export const postDiscordUserHandler = async (
                   })
                   if (query.length == 0) {
                         const censoredDiscordUserData:
-                              | CensoredDiscordUserData
-                              | DiscordUserData =
+                              | GDPRCensoredDiscordUserData
+                              | GDPRExemptDiscordUserData =
                               censorDiscordUserDataByLocale(discordUserData)
                         const user: typeof User = new User({
                               public_key: publicKey,

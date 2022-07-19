@@ -75,27 +75,28 @@ export const GDPR_EXEMPT_LOCALES: string[] = ["en-US"]
 ```
 of all the `locales` that we would like to collect the full payload of discord from. Locales within this list will be saved to the db with the following discord data: 
 ```ts
-export type DiscordUserData = {
-      username: string | null;
-      avatar: string | null;
-      avatar_decoration: string | null;
-      discriminator: string | null;
-      public_flags: number | null;
-      flags: number | null;
-      banner: string | null;
-      banner_color: string | null;
-      accent_color: string | null;
-      locale: string | null;
-      mfa_enabled: boolean | null;
-      email: string | null;
-      verified: boolean | null;
+export type GDPRExemptDiscordUserData = {
+      discord_id: string | null
+      username: string | null
+      avatar: string | null
+      avatar_decoration: string | null
+      discriminator: string | null
+      public_flags: number | null
+      flags: number | null
+      banner: string | null
+      banner_color: string | null
+      accent_color: string | null
+      locale: string | null
+      mfa_enabled: boolean | null
+      email: string | null
+      verified: boolean | null
 }
 ```
 Users from locales outside of this list will have a reduced schema of the form: 
 ```ts
 export type GDPRCensoredDiscordUserData = {
-      username: string | null;
-      discriminator: string | null;
+      discord_id: string | null
+      username: string | null // We want to keep this field to display it in the UI. Showing a discord Id would be confusing.
 }
 ```
 

@@ -34,6 +34,14 @@ services:
     depends_on:
       - api
     restart: always
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    networks:
+      - drift-network
 networks:
   drift-network:
     driver: bridge
