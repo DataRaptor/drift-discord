@@ -30,9 +30,14 @@ const UserComponent = ({ discordUsername }: any) => {
 }
 
 export const SocialsComponent = () => {
+
+      const DISCONNECTED_HEADER_MESSAGE: string = 'Connect your Solana wallet to get started with Drift Discord'
+      const CONNECTED_HEADER_MESSAGE: string = 'Welcome. Connect your Discord to use Drift Discord'
+      const LINEKD_HEADER_MESSAGE: string = 'Congratulations! Your Discord account is linked to Drift'
+
       const router = useRouter()
       const [headerMessage, setHeaderMessage] = useState(
-            'Connect your Solana wallet to get started with Drift Discord'
+            DISCONNECTED_HEADER_MESSAGE
       )
       const [driftMessage, setDriftMessage] = useState('')
       const [discordGeneratedUrl, setDiscordGeneratedUrl] = useState('')
@@ -72,9 +77,7 @@ export const SocialsComponent = () => {
             const executeRefetchSignature = async () => {
                   setDiscordUser(null)
                   setDiscordUserFetched(false)
-                  setHeaderMessage(
-                        'Connect your Solana wallet to get started with Drift Discord'
-                  )
+                  // setHeaderMessage(DISCONNECTED_HEADER_MESSAGE)
                   if (connected && publicKey) {
                         var lastSignature = getSignatureFromLocalStorage()
                         if (!lastSignature) {
@@ -88,8 +91,7 @@ export const SocialsComponent = () => {
                                     publicKey.toBytes()
                               )
                         ) {
-                              lastSignature =
-                                    await signAndPutSignatureinLocalStorage()
+                              await signAndPutSignatureinLocalStorage()
                         }
                   }
             }
@@ -158,11 +160,18 @@ export const SocialsComponent = () => {
       }
 
       useEffect(() => {
+            // This hook is used for detecting accessTokens in the url 
+            // and posts to the API if it exists. 
             const executeOnRouterChange = async () => {
                   await executePostDiscordUser()
             }
             executeOnRouterChange()
       }, [router.query.access_token, connected])
+
+      useEffect(() => {
+            if (!connected) setHeaderMessage(DISCONNECTED_HEADER_MESSAGE)
+            if (connected && !discordUser) setHeaderMessage(CONNECTED_HEADER_MESSAGE)
+      }, [connected])
 
       const executeGetRegistrationConfig = async () => {
             if (registrationConfigFetched) return
@@ -194,9 +203,7 @@ export const SocialsComponent = () => {
                   // if (!discordUser && !router.query.access_token)
                   //   triggerToast(`Welcome back ${username}! We missed you.`)
                   setDiscordUser(getDiscordUserResponse.data.user)
-                  setHeaderMessage(
-                        'Congratulations! Your Discord account is linked to Drift'
-                  )
+                  setHeaderMessage(LINEKD_HEADER_MESSAGE)
                   fireConfetti()
             }
       }, [getDiscordUserResponse.data])
