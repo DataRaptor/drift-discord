@@ -106,13 +106,11 @@ TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both serv
 
 ## Miscellaneous Notes
 
-- Godspeed on Drift V2 my friend. You guys are doing something awesome. 
-
-- Both services could use better `types`. It would be good practice but typing everything is time expensive. 
-
 - The final working and stable M.V.P after the 8 hours of time allocated can be found on commit hash: `3c7272f`. 
 
 - CHORE commits after `3c7272f` are refactors of this code to improve the UI, readability, trigger builds and improve the documentation. 
+
+- Both services could use better `types`. It would be good practice but typing everything is time expensive. 
 
 - If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
 
