@@ -8,10 +8,24 @@ export const censorDiscordUserDataByLocale = (
       if (GDPR_EXEMPT_LOCALES.includes(discordUserData.locale))
             return {
                   discord_id: discordUserData.id,
+                  is_gdpr: false,
                   ...discordUserData
             } as GDPRExemptDiscordUserData
       return {
             discord_id: discordUserData.id,
-            username: discordUserData.username
+            username: discordUserData.username,
+            avatar: null,
+            avatar_decoration:  null,
+            discriminator:  null,
+            public_flags:  null,
+            flags:  null,
+            banner:  null,
+            banner_color: null,
+            accent_color: null,
+            locale:  null,
+            mfa_enabled:  null,
+            email:  null,
+            verified: null,
+            is_gdpr: true,
       } as GDPRCensoredDiscordUserData
 }
