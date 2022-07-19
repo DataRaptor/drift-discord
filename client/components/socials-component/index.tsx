@@ -20,20 +20,13 @@ import {
 import styles from '../../styles/Home.module.css'
 import { DriftDiscordLogo } from './drift-discord-logos'
 
-const UserComponent = ({ discordUsername }: any) => {
-      return (
-            <>
-                  <DriftDiscordLogo />
-                  <p className={styles.usernameText}>{discordUsername}</p>
-            </>
-      )
-}
-
 export const SocialsComponent = () => {
-
-      const DISCONNECTED_HEADER_MESSAGE: string = 'Connect your Solana wallet to get started with Drift Discord'
-      const CONNECTED_HEADER_MESSAGE: string = 'Welcome. Connect your Discord to use Drift Discord'
-      const LINEKD_HEADER_MESSAGE: string = 'Congratulations! Your Discord account is linked to Drift'
+      const DISCONNECTED_HEADER_MESSAGE: string =
+            'Connect your Solana wallet to get started with Drift Discord'
+      const CONNECTED_HEADER_MESSAGE: string =
+            'Welcome. Connect your Discord to use Drift Discord'
+      const LINEKD_HEADER_MESSAGE: string =
+            'Congratulations! Your Discord account is linked to Drift'
 
       const router = useRouter()
       const [headerMessage, setHeaderMessage] = useState(
@@ -48,6 +41,7 @@ export const SocialsComponent = () => {
       const { connected, publicKey, signMessage } = useWallet()
 
       const getSignatureFromLocalStorage = (): string => {
+            // Get the last signature signed by a wallet from localstorage.
             var lastSignature: string | null =
                   localStorage.getItem('lastSignature')
             lastSignature = lastSignature ? lastSignature : ''
@@ -55,6 +49,8 @@ export const SocialsComponent = () => {
       }
 
       const signAndPutSignatureinLocalStorage = async (): Promise<string> => {
+            // Sign message with Solana wallet and put the resulting signature in
+            // local storage.
             const message = new TextEncoder().encode(driftMessage) as Uint8Array
             if (!publicKey) throw Error('Wallet Not connected')
             const signature = await signMessage(message)
@@ -63,6 +59,92 @@ export const SocialsComponent = () => {
             }
             return bs58.encode(signature)
       }
+
+      const onConnectDiscordClick = async () => {
+            const message = new TextEncoder().encode(driftMessage) as Uint8Array
+            const lastSignature = getSignatureFromLocalStorage()
+            if (!connected) return // break if wallet not connected.
+            if (!publicKey) return // break iff no publickey.
+            if (
+                  !lastSignature ||
+                  !sign.detached.verify(
+                        message,
+                        bs58.decode(lastSignature),
+                        publicKey.toBytes()
+                  )
+            ) {
+                  // If the user attempts to click the discord button before they sign the message.
+                  triggerToast(
+                        'You must sign the drift message with your wallet before connecting discord!'
+                  )
+                  signAndPutSignatureinLocalStorage()
+                  return // break since wallet has not signed. The user must then reclick the discord button.
+            }
+            router.push(discordGeneratedUrl)
+      }
+
+      const executeGetRegistrationConfig = async () => {
+            // Executed on page load, this gets us our message to sign and the discord
+            // oAuth redirect from the server so that we don't have to store in on the client.
+            if (registrationConfigFetched) return
+            const responseJson = await getRegistrationConfig()
+            if (responseJson.ok) setRegistrationConfigFetched(true)
+            return responseJson
+      }
+
+      const executeGetDiscordUser = async () => {
+            const publicKeyString = publicKey?.toBase58()
+                  ? (publicKey?.toBase58() as string)
+                  : ''
+            const lastSignatureString = getSignatureFromLocalStorage()
+            if (!connected) return // break iff wallet not connected
+            if (!publicKey) return // break iff no publickey.
+            if (!lastSignatureString) return // break iff wallet has not signed.
+            if (discordUserFetched) return // break iff discord data has already been fetched
+            const response = await getDiscordUser({
+                  publicKey: publicKeyString,
+                  signature: lastSignatureString,
+            })
+            const responseJson = await response.json()
+            if (responseJson.ok) setDiscordUserFetched(true)
+            return responseJson
+      }
+
+      const executePostDiscordUser = async () => {
+            const accessToken: string | string[] | undefined =
+                  router.query.access_token
+            if (!accessToken) return // break iff theres is no access token in query params
+            if (!connected) return // break iff wallet not connected
+            if (!publicKey) return // break iff no publickey.
+            const lastSignature = getSignatureFromLocalStorage()
+            if (!lastSignature) return // break if no signature
+            const response = await postCreateDiscordUser({
+                  publicKey: bs58.encode(publicKey.toBuffer()),
+                  signature: lastSignature,
+                  accessToken: accessToken as string,
+            })
+            if (response.status == 200) {
+                  const responseJson = await response.json()
+                  triggerToast(responseJson.message)
+                  removeQueryParamsFromRouter(router, ['access_token']) // remove token from url on success
+            }
+      }
+
+      const getDiscordUserResponse = useSWR(
+            'GET::/v1/discord_user',
+            executeGetDiscordUser,
+            {
+                  refreshInterval: 100, // Execute every 0.1 seconds. Note that requests will not be made if the discordUserData has already been fetched.
+            }
+      )
+
+      const getRegistrationConfigResponse = useSWR(
+            'GET::/v1/registration_config',
+            executeGetRegistrationConfig,
+            {
+                  refreshInterval: 100, // Execute every 0.1 seconds. Note requests will not execute if registrationConfig already fetched.
+            }
+      )
 
       useEffect(() => {
             // Whenever the user connects, Check localstorage for the last signature they've signed.
@@ -77,7 +159,6 @@ export const SocialsComponent = () => {
             const executeRefetchSignature = async () => {
                   setDiscordUser(null)
                   setDiscordUserFetched(false)
-                  // setHeaderMessage(DISCONNECTED_HEADER_MESSAGE)
                   if (connected && publicKey) {
                         var lastSignature = getSignatureFromLocalStorage()
                         if (!lastSignature) {
@@ -98,70 +179,9 @@ export const SocialsComponent = () => {
             executeRefetchSignature()
       }, [connected, publicKey, driftMessage])
 
-      const onConnectDiscordClick = async () => {
-            const message = new TextEncoder().encode(driftMessage) as Uint8Array
-            const lastSignature = getSignatureFromLocalStorage()
-            if (!connected) return // break if wallet not connected.
-            if (!publicKey) return // break iff no publickey.
-            if (
-                  !lastSignature ||
-                  !sign.detached.verify(
-                        message,
-                        bs58.decode(lastSignature),
-                        publicKey.toBytes()
-                  )
-            ) {
-                  // If the user attempts to click the discord button before they sign the message.
-                  triggerToast(
-                        'You must sign the drift message with your wallet before connecting discord!'
-                  )
-                  signAndPutSignatureinLocalStorage()
-                  return // break iff wallet has not signed.
-            }
-            router.push(discordGeneratedUrl)
-      }
-
-      const executeGetDiscordUser = async () => {
-            const publicKeyString = publicKey?.toBase58()
-                  ? (publicKey?.toBase58() as string)
-                  : ''
-            const lastSignatureString = getSignatureFromLocalStorage()
-            if (!connected) return // break if wallet not connected
-            if (!publicKey) return // break iff no publickey.
-            if (!lastSignatureString) return // break iff wallet has not signed.
-            if (discordUserFetched) return // break iff discord data has already been fetched
-            const response = await getDiscordUser({
-                  publicKey: publicKeyString,
-                  signature: lastSignatureString,
-            })
-            const responseJson = await response.json()
-            if (responseJson.ok) setDiscordUserFetched(true)
-            return responseJson
-      }
-
-      const executePostDiscordUser = async () => {
-            const accessToken: string | string[] | undefined =
-                  router.query.access_token
-            if (!accessToken) return // break immediated if theres is no access token in query params
-            const lastSignature = getSignatureFromLocalStorage()
-            if (!connected) return // break if wallet not connected
-            if (!publicKey) return // break iff no publickey.
-            if (!lastSignature) return // break if no signature
-            const response = await postCreateDiscordUser({
-                  publicKey: bs58.encode(publicKey.toBuffer()),
-                  signature: lastSignature,
-                  accessToken: accessToken as string,
-            })
-            if (response.status == 200) {
-                  const responseJson = await response.json()
-                  triggerToast(responseJson.message)
-            }
-            removeQueryParamsFromRouter(router, ['access_token'])
-      }
-
       useEffect(() => {
-            // This hook is used for detecting accessTokens in the url 
-            // and posts to the API if it exists. 
+            // This hook is used for detecting accessTokens in the url
+            // and posts to the API if it exists.
             const executeOnRouterChange = async () => {
                   await executePostDiscordUser()
             }
@@ -170,38 +190,12 @@ export const SocialsComponent = () => {
 
       useEffect(() => {
             if (!connected) setHeaderMessage(DISCONNECTED_HEADER_MESSAGE)
-            if (connected && !discordUser) setHeaderMessage(CONNECTED_HEADER_MESSAGE)
+            if (connected && !discordUser)
+                  setHeaderMessage(CONNECTED_HEADER_MESSAGE)
       }, [connected])
-
-      const executeGetRegistrationConfig = async () => {
-            if (registrationConfigFetched) return
-            const responseJson = await getRegistrationConfig()
-            if (responseJson.ok) setRegistrationConfigFetched(true)
-            return responseJson
-      }
-
-      const getDiscordUserResponse = useSWR(
-            'GET::/v1/discord_user',
-            executeGetDiscordUser,
-            {
-                  refreshInterval: 100, // Execute every 0.1 seconds. Note that requests will not be made if the discordUserData has already been fetched.
-            }
-      )
-
-      const getRegistrationConfigResponse = useSWR(
-            'GET::/v1/registration_config',
-            executeGetRegistrationConfig,
-            {
-                  refreshInterval: 100, // Execute every 0.1 seconds. Note requests will not execute if already fetched. 
-            }
-      )
 
       useEffect(() => {
             if (getDiscordUserResponse.data?.user) {
-                  // I would like this but need to put a better place to put it.
-                  // const username: string = getDiscordUserResponse.data.user.username
-                  // if (!discordUser && !router.query.access_token)
-                  //   triggerToast(`Welcome back ${username}! We missed you.`)
                   setDiscordUser(getDiscordUserResponse.data.user)
                   setHeaderMessage(LINEKD_HEADER_MESSAGE)
                   fireConfetti()
@@ -219,55 +213,44 @@ export const SocialsComponent = () => {
 
       return (
             <div className={styles.socialsContainerWrapper}>
-            <div className={styles.socialsContainer}>
-                  <div className={styles.headerText}>{headerMessage}</div>
-                  <div
-                        style={{
-                              margin: 'auto',
-                              width: '40%',
-                              marginTop: '75px',
-                        }}
-                  >
-                        {!registrationConfigFetched && <LoadingSpinner />}
-                        {registrationConfigFetched && (
+                  <div className={styles.socialsContainer}>
+                        <div className={styles.headerText}>{headerMessage}</div>
+                        <div className={styles.socialsContainerInner}>
+                              {!registrationConfigFetched && <LoadingSpinner />}
+                              {registrationConfigFetched && (
+                                    <>
+                                          {!connected && <ConnectButton />}
+                                          {connected && !discordUser && (
+                                                <>
+                                                      {discordUserFetched ? (
+                                                            <button
+                                                                  className={
+                                                                        styles.connectDiscordButton
+                                                                  }
+                                                                  onClick={
+                                                                        onConnectDiscordClick
+                                                                  }
+                                                            >
+                                                                  Connect
+                                                                  Discord
+                                                            </button>
+                                                      ) : (
+                                                            <LoadingSpinner />
+                                                      )}
+                                                </>
+                                          )}
+                                    </>
+                              )}
+                        </div>
+                        {connected && discordUser && (
                               <>
-                                    {!connected && <ConnectButton />}
-                                    {connected && (
-                                          <>
-                                                {discordUserFetched ? (
-                                                      <>
-                                                            {!discordUser && (
-                                                                  <button
-                                                                        className={
-                                                                              styles.connectDiscordButton
-                                                                        }
-                                                                        onClick={
-                                                                              onConnectDiscordClick
-                                                                        }
-                                                                  >
-                                                                        Connect
-                                                                        Discord
-                                                                  </button>
-                                                            )}
-                                                      </>
-                                                ) : (
-                                                      <>
-                                                            {!discordUser && (
-                                                                  <LoadingSpinner />
-                                                            )}
-                                                      </>
-                                                )}
-                                          </>
-                                    )}
+                                    <DriftDiscordLogo />
+                                    <p className={styles.usernameText}>
+                                          {discordUser?.username}
+                                    </p>
                               </>
                         )}
                   </div>
-                  {connected && discordUser && (
-                        <UserComponent
-                              discordUsername={discordUser?.username}
-                        />
-                  )}
-            </div>
             </div>
       )
 }
