@@ -1,4 +1,5 @@
 {
+      "exclude": ["node_modules", "./tests/**/*.ts"],
       "compilerOptions": {
             "module": "commonjs",
             "noImplicitAny": false,
