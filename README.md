@@ -78,11 +78,11 @@ export const GDPR_EXEMPT_LOCALES: string[] = ["en-US"]
 of all the `locales` that we would like to collect the full payload of discord from. Locales within this list will be saved to the db with the following discord data: 
 ```ts
 export type GDPRExemptDiscordUserData = {
-      discord_id: string | null
-      username: string | null
+      discord_id: string
+      username: string
       avatar: string | null
       avatar_decoration: string | null
-      discriminator: string | null
+      discriminator: string
       public_flags: number | null
       flags: number | null
       banner: string | null

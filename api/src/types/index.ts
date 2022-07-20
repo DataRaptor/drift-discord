@@ -10,11 +10,11 @@ export type SolanaWalletData = {
 }
 
 export type DiscordUserData = {
-      id: string | null
-      username: string | null
+      id: string 
+      username: string 
       avatar: string | null
       avatar_decoration: string | null
-      discriminator: string | null
+      discriminator: string
       public_flags: number | null
       flags: number | null
       banner: string | null
@@ -27,11 +27,11 @@ export type DiscordUserData = {
 }
 
 export type GDPRExemptDiscordUserData = {
-      discord_id: string | null
-      username: string | null
+      discord_id: string
+      username: string
       avatar: string | null
       avatar_decoration: string | null
-      discriminator: string | null
+      discriminator: string
       public_flags: number | null
       flags: number | null
       banner: string | null
