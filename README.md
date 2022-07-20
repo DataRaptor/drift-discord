@@ -18,8 +18,6 @@ Click [here](https://api-4fpiw4senq-ue.a.run.app) to go to the deployed API.
 
 This repo contains two services, an API and Client.
 
-These services are ready for production iff testing is complete. 
-
 Documentation for each service can be found in the respective directories.
 
 ## UI/UX
