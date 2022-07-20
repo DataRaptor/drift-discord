@@ -3,6 +3,12 @@ export type RegistrationConfig = {
       driftMessage: string
 }
 
+export type SolanaWalletData = {
+      public_key: string
+      signature: string
+      message: string
+}
+
 export type DiscordUserData = {
       id: string | null
       username: string | null
@@ -42,16 +48,16 @@ export type GDPRCensoredDiscordUserData = {
       discord_id: string | null
       username: string | null // We want to keep this field to display it in the UI. Showing a discord Id would be confusing to the user.
       avatar: null
-      avatar_decoration:  null
-      discriminator:  null
-      public_flags:  null
-      flags:  null
-      banner:  null
+      avatar_decoration: null
+      discriminator: null
+      public_flags: null
+      flags: null
+      banner: null
       banner_color: null
       accent_color: null
-      locale:  null
-      mfa_enabled:  null
-      email:  null
+      locale: null
+      mfa_enabled: null
+      email: null
       verified: null
       is_gdpr: null
 }

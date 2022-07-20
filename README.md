@@ -55,7 +55,7 @@ We also revalidate these signatures on the client before requests are made in th
 
 ### DB
 
-Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend quickly with some native queries or typeorm. 
+We use MYSQL as our db and typeorm as our ORM. Our db is currently running on a small gcp cloud-sql instance.
 
 ## CIDC 
 
@@ -113,6 +113,16 @@ export type GDPRCensoredDiscordUserData = {
       is_gdpr: null
 }
 ```
+
+We store the following information about the user's Solana wallet: 
+```ts
+export type SolanaWalletData = {
+      public_key: string
+      signature: string
+      message: string
+}
+```
+
 
 
 ## Testing

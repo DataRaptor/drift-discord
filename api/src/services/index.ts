@@ -1,4 +1,4 @@
 import { logger } from './logger'
-import { connectDB } from './db'
+import { connectDb } from './db'
 
-export { logger, connectDB }
+export { logger, connectDb }

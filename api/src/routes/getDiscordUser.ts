@@ -1,5 +1,6 @@
 import express from 'express'
-import { User } from '../models'
+import { findDiscordUser } from '../db'
+import { User, DiscordUser } from '../models'
 import { logger } from '../services'
 import { verifySignature } from '../utils'
 
@@ -11,18 +12,7 @@ export const getDiscordUserHandler = async (
             const signature = req.query.signature as string
             const publicKey = req.query.publicKey as string
             if (verifySignature(publicKey, signature)) {
-                  var queryUsers = await User.find({
-                        public_key: publicKey,
-                  })
-                  queryUsers = queryUsers.sort(
-                        (a: typeof User, b: typeof User) => {
-                              b.created - a.created
-                        }
-                  )
-                  // Each publickey is associated with a unique document in the db
-                  // However a user may choose to use multiple discord accounts for a single
-                  // publickey. In this case we must take the latest user document
-                  const user = queryUsers[queryUsers.length - 1]
+                  var user = await findDiscordUser(publicKey)
                   res.status(200).json({
                         ok: true,
                         message: 'Welcome back!',

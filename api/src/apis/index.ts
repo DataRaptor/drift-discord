@@ -1,6 +1,7 @@
 import axios from 'axios'
 import url from 'url'
 import { ParsedQs } from 'qs'
+import { DiscordUserData } from "../types"
 import {
       DISCORD_API,
       DISCORD_CLIENT_ID,
@@ -36,7 +37,7 @@ export const exchangeDiscordAccessToken = async (
       return null
 }
 
-export const getDiscordUserData = async (accessToken: string): Promise<any> => {
+export const getDiscordUserData = async (accessToken: string): Promise<DiscordUserData | null> => {
       const userResponse = await axios.get(`${DISCORD_API}/users/@me`, {
             headers: {
                   Authorization: `Bearer ${accessToken}`,
@@ -44,7 +45,7 @@ export const getDiscordUserData = async (accessToken: string): Promise<any> => {
       })
       if (userResponse.status == 200) return userResponse.data
       logger.error(`Could not get discord data`)
-      return {}
+      return null
 }
 
 export const revokeDiscordAccessToken = async (
