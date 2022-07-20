@@ -2,9 +2,9 @@
 module.exports = {
       reactStrictMode: true,
       env: {
-            API_URL: 'https://api-sql-4fpiw4senq-ue.a.run.app',
+            // API_URL: 'https://api-sql-4fpiw4senq-ue.a.run.app',
             // API_URL: 'http://localhost:8080',
-            // API_URL: 'https://api-4fpiw4senq-ue.a.run.app'
+            API_URL: 'https://api-4fpiw4senq-ue.a.run.app'
       },
       typescript: {
             // !! WARN !!
