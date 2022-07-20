@@ -57,7 +57,7 @@ images:
 timeout: '1800s'
 
 substitutions:
-  _SOURCE_PATH: '.'
+  _SOURCE_PATH: './api'
   _GCP_PROJECT: 'drift-discord'
   _GCP_REGION: 'us-east1'
   _SERVICE_NAME: 'api'
