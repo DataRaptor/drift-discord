@@ -55,7 +55,7 @@ We also revalidate these signatures on the client before requests are made in th
 
 ### DB
 
-We use MYSQL as our db and typeorm as our ORM. Our db is currently running on a small gcp cloud-sql instance.
+We use MYSQL and typeorm. Our db is currently running on a small gcp cloud-sql instance.
 
 ## CIDC 
 
