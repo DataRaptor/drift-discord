@@ -68,7 +68,7 @@ const main = async () => {
       )
 
       app.listen(PORT, async () =>
-            logger.info(`🦾 [Drift-Discord::API] listening on PORT: ${PORT}`)
+            logger.info(`[Drift-Discord::API] 🦾 listening on PORT: ${PORT}`)
       )
 }
 

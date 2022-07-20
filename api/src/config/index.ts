@@ -1,5 +1,3 @@
-import { logger } from "../services"
-
 require('dotenv').config()
 
 // Non-secrets
@@ -17,7 +15,7 @@ export const CLIENT_URL: string = process.env.CLIENT_URL || ''
 export const DRIFT_MESSAGE: string =
       process.env.DRIFT_MESSAGE || 'Default Drift Message'
 
-export const GCP_CLOUD_SQL_INSTANCE: string = process.env.CLOUD_SQL_INSTANCE || ""
+export const GCP_CLOUD_SQL_INSTANCE: string = process.env.GCP_CLOUD_SQL_INSTANCE || ""
 export const MYSQL_PORT: number = parseInt(process.env.MYSQL_POST) || 3306
 
 // Secrets

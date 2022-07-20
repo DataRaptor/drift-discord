@@ -12,13 +12,30 @@ import { createConnection } from 'typeorm'
 
 export const connectDb = async () => {
       if (PRODUCTION) {
+            logger.warn({
+                  type: 'mysql',
+                  port: MYSQL_PORT,
+                  username: MYSQL_USERNAME,
+                  password: MYSQL_PASSWORD,
+                  extra: {
+                        socketPath: `/cloudsql/${GCP_CLOUD_SQL_INSTANCE}`
+                  },
+                  database: MYSQL_DB,
+                  synchronize: true,
+                  logging: false,
+                  migrationsTableName: 'migrations',
+                  entities: ['src/models/**/*.ts'],
+                  cli: {
+                        entitiesDir: 'src/entity',
+                  },
+            })
             await createConnection({
                   type: 'mysql',
                   port: MYSQL_PORT,
                   username: MYSQL_USERNAME,
                   password: MYSQL_PASSWORD,
                   extra: {
-                        socketPath: GCP_CLOUD_SQL_INSTANCE
+                        socketPath: `/cloudsql/${GCP_CLOUD_SQL_INSTANCE}`
                   },
                   database: MYSQL_DB,
                   synchronize: true,
