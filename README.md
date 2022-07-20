@@ -97,8 +97,8 @@ export type GDPRExemptDiscordUserData = {
 Users from locales outside of this list will have a reduced schema of the form: 
 ```ts
 export type GDPRCensoredDiscordUserData = {
-      discord_id: string | null
-      username: string | null // We want to keep this field to display it in the UI. Showing a discord Id would be confusing to the user.
+      discord_id: string
+      username: string // We want to keep this field to display it in the UI. Showing a discord Id would be confusing to the user.
       avatar: null
       avatar_decoration:  null
       discriminator:  null
