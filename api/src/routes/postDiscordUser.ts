@@ -2,7 +2,7 @@ import express from 'express'
 import { logger } from '../services/logger'
 import { getDiscordUserData, revokeDiscordAccessToken } from '../apis'
 import { verifySignature, decryptAccessToken, censorDiscordUserDataByLocale } from '../libs'
-import { createDiscordUser, findDiscordUser } from '../db'
+import { DiscordUser, createDiscordUser, findDiscordUser } from '../db'
 import {
       GDPRCensoredDiscordUserData,
       GDPRExemptDiscordUserData,
@@ -23,7 +23,7 @@ export const postDiscordUserHandler = async (
                   const discordUserData: DiscordUserData = await getDiscordUserData(
                         decryptedAccessToken
                   )
-                  const existingUser = await findDiscordUser(publicKey)
+                  const existingUser: DiscordUser = await findDiscordUser(publicKey)
                   if (!existingUser) {
                         const solanaWalletData: SolanaWalletData = {
                               signature: signature,
@@ -34,13 +34,14 @@ export const postDiscordUserHandler = async (
                               | GDPRCensoredDiscordUserData
                               | GDPRExemptDiscordUserData =
                               censorDiscordUserDataByLocale(discordUserData)
-                        await createDiscordUser(
+                        const user: DiscordUser = await createDiscordUser(
                               censoredDiscordUserData,
                               solanaWalletData
                         )
                         await revokeDiscordAccessToken(accessToken)
                         res.status(200).json({
                               ok: true,
+                              user: user,
                               message: "Welcome! You've successfully linked your discord to Drift.",
                               error: null,
                         })
