@@ -1,4 +1,4 @@
-import { DiscordUser } from '../models'
+import { DiscordUser } from '../models/index.entity'
 import {
       GDPRExemptDiscordUserData,
       GDPRCensoredDiscordUserData,

@@ -1,5 +1,4 @@
 import express from 'express'
-import { User } from '../models'
 import { logger } from '../services/logger'
 import { verifySignature, decryptAccessToken } from '../utils'
 import { getDiscordUserData, revokeDiscordAccessToken } from '../apis'
@@ -17,7 +16,7 @@ export const postDiscordUserHandler = async (
       req: express.Request,
       res: express.Response
 ) => {
-      // try {
+      try {
       const { accessToken, signature, publicKey } = req.body
       const decryptedAccessToken: string = decryptAccessToken(accessToken)
       if (verifySignature(publicKey, signature)) {
@@ -62,11 +61,11 @@ export const postDiscordUserHandler = async (
                   error: `A user with ${publicKey} attempted to use an incorrect signature`,
             })
       }
-      // } catch (error) {
-      //       res.status(500).json({
-      //             ok: false,
-      //             message: 'Something went wrong. Please try again.',
-      //             error: error.message,
-      //       })
-      // }
+      } catch (error) {
+            res.status(500).json({
+                  ok: false,
+                  message: 'Something went wrong. Please try again.',
+                  error: error.message,
+            })
+      }
 }

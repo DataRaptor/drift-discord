@@ -140,5 +140,3 @@ TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both serv
 - If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
 
 - Since I am on the only one in this repo, I typically commit right to `main` despite the rebuilds. No branches / pull requests needed.
-
-- TODO: Create a SQL instance and switch to typeorm if time permits. Also get rid of 3rd party ORMs.

@@ -1,26 +1,3 @@
-const mongoose = require('mongoose')
-
-const userSchema = new mongoose.Schema({
-      discord_id: String,
-      username: String,
-      avatar: String,
-      avatar_decoration: String,
-      discriminator: String,
-      public_flags: Number,
-      flags: Number,
-      banner: String,
-      banner_color: String,
-      accent_color: String,
-      locale: String,
-      mfa_enabled: Boolean,
-      email: String,
-      verified: Boolean,
-      public_key: String,
-      signature: String,
-      message: String,
-      is_gdpr: Boolean,
-      created: { type: Date, default: Date.now },
-})
 
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
@@ -86,5 +63,3 @@ export class DiscordUser extends BaseEntity {
       @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
       created: Date
 }
-
-export const User = mongoose.model('User', userSchema)

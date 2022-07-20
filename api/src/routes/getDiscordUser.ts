@@ -1,6 +1,6 @@
 import express from 'express'
 import { findDiscordUser } from '../db'
-import { User, DiscordUser } from '../models'
+import { DiscordUser } from '../models/index.entity'
 import { logger } from '../services'
 import { verifySignature } from '../utils'
 
