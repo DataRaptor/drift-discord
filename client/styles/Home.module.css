@@ -223,8 +223,8 @@
 
 .connectDiscordButton:hover {
       cursor: pointer;
-      box-shadow: 0px 10px 40px rgba(216, 164, 255, 0.605);
-      -webkit-box-shadow: 0px 10px 40px rgba(216, 164, 255, 0.605);
+      box-shadow: 0px 10px 20px rgba(216, 164, 255, 0.605);
+      -webkit-box-shadow: 0px 10px 20px rgba(216, 164, 255, 0.605);
       transition: 1s;
       -webkit-transition: 1s;
       -moz-transition: 1s;
