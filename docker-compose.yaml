@@ -11,37 +11,48 @@ services:
     networks:
       - drift-network
     restart: always
-  environment:
-    PORT=8080
-    MONGO_CONN_STRING=
-    DISCORD_API=
-    DISCORD_CLIENT_ID=
-    DISCORD_SECRET=
-    DISCORD_REDIRECT_URI=
-    DRIFT_MESSAGE=
-    CLIENT_URL=
-    AES_HTTP_TRANSPORT_SECRET=
-  client:
-    container_name: client
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
-    networks:
-      - drift-network
-    restart: always
-    depends_on:
-      - api
-    restart: always
+    environment:
+      PRODUCTION: "false"
+      PORT: 8080
+      LOG_LEVEL: "debug"
+      DISCORD_API: ""
+      DISCORD_CLIENT_ID: ""
+      DISCORD_SECRET: ""
+      DISCORD_REDIRECT_URI: ""
+      DISCORD_GENERATED_URL: ""
+      CLIENT_URL: "http://localhost:3000"
+      DRIFT_MESSAGE: "Default Message"
+      GCP_CLOUD_SQL_INSTANCE: ""
+      MYSQL_HOST: "localhost"
+      MYSQL_USERNAME: "root"
+      MYSQL_PASSWORD: "dev"
+      MYSQL_DB: "drift-discord"
+      AES_HTTP_TRANSPORT_SECRET: "11122233344455566677788822244455555555555555555231231321313aaaff"
+    depends_on: 
+      - db
+  # client:
+  #   container_name: client
+  #   build:
+  #     context: ./client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - drift-network
+  #   restart: always
+  #   depends_on:
+  #     - api
+  #   restart: always
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: "dev"
+      MYSQL_DATABASE: "drift-discord"
     networks:
       - drift-network
+    
 networks:
   drift-network:
     driver: bridge
