@@ -43,7 +43,7 @@ substitutions:
   _GCP_PROJECT: 'drift-discord'
   _GCP_REGION: 'us-east1'
   _SERVICE_NAME: 'client'
-  _SERVICE_VERSION: '0.0.1'
+  _SERVICE_VERSION: '1.0.0'
   _MEMORY: '1Gi'
   _CPUS: '1'
   _CONCURRENCY: '100'

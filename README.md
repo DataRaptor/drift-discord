@@ -18,7 +18,6 @@ Click [here](https://api-4fpiw4senq-ue.a.run.app) to go to the deployed API.
 
 This repo contains two services, an API and Client.
 
-The services are almost production ready with a few more tests. 
 
 Documentation for each service can be found in the respective directories.
 
@@ -129,7 +128,9 @@ export type SolanaWalletData = {
 
 ## Testing
 
-TODO: We have no testing on either service. Both services have to be tested before they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests... 
+The services is fairly simple and will be production ready with a few more unit and e2e tests. 
+
+We could like to do some cypress testing but this requires a development enviroment. 
 
 ## Miscellaneous Notes
 
