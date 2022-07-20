@@ -127,7 +127,7 @@ export type SolanaWalletData = {
 
 ## Testing
 
-TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both services have to be tested if they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests... 
+TODO: We have no testing on either service. Both services have to be tested before they want to hit production. Figured the point of this wasn't to see how i'd write mocha and cypress tests... 
 
 ## Miscellaneous Notes
 
