@@ -5,7 +5,7 @@ default:
 # Development DB
 .PHONY: db
 db: 
-	docker-compose up --build -f ./db/docker-compose.yaml
+	docker-compose up -f ./db/docker-compose.yaml
 
 # Services containerization
 .PHONY: docker

@@ -55,7 +55,7 @@ We also revalidate these signatures on the client before requests are made in th
 
 ### DB
 
-Since we're not doing any complex joins I thought it was sufficient to use a document store as my DB; I chose mongo atlas. For this usecase, this is fine since we're only geting and saving a single model. However, if you give me a SQL instance I swap out the backend quickly with some native queries or typeorm. 
+We use MYSQL as our db and typeorm as our ORM. Our db is currently running on a small gcp cloud-sql instance.
 
 ## CIDC 
 
@@ -114,6 +114,16 @@ export type GDPRCensoredDiscordUserData = {
 }
 ```
 
+We store the following information about the user's Solana wallet: 
+```ts
+export type SolanaWalletData = {
+      public_key: string
+      signature: string
+      message: string
+}
+```
+
+
 
 ## Testing
 
@@ -130,5 +140,3 @@ TODO: We have no testing on either service. Yolo? am I right? Nah jks. Both serv
 - If it takes a while initially to load, note that both services are deployed to GCP `cloud-run` which cold starts the containers after some period of inactivity (avoids billing). 
 
 - Since I am on the only one in this repo, I typically commit right to `main` despite the rebuilds. No branches / pull requests needed.
-
-- TODO: Create a SQL instance and switch to typeorm if time permits. Also get rid of 3rd party ORMs.

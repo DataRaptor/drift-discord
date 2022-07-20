@@ -1,0 +1,76 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}',
+        '${_SOURCE_PATH}',
+      ]
+    
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      ['push', 'gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - 'gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}'
+      - '--region'
+      - '${_GCP_REGION}'
+      - '--platform'
+      - 'managed'
+      - '--cpu'
+      - '${_CPUS}'
+      - '--concurrency'
+      - '${_CONCURRENCY}'
+      - '--memory'
+      - '${_MEMORY}'
+      - '--max-instances'
+      - '${_MAX_INSTANCES}'
+      - '--allow-unauthenticated'
+      - '--add-cloudsql-instances=${_GCP_CLOUD_SQL_INSTANCE}'
+      - '--set-env-vars=PRODUCTION=${_PRODUCTION}'
+      - '--set-env-vars=LOG_LEVEL=${_LOG_LEVEL}'
+      - '--set-env-vars=GCP_CLOUD_SQL_INSTANCE=${_GCP_CLOUD_SQL_INSTANCE}'
+      - '--set-env-vars=DISCORD_API=${_DISCORD_API}'
+      - '--set-env-vars=CLIENT_URL=${_CLIENT_URL}'
+      - '--set-env-vars=DRIFT_MESSAGE=${_DRIFT_MESSAGE}'
+      - '--set-env-vars=DISCORD_REDIRECT_URI=${_DISCORD_REDIRECT_URI}'
+      - '--set-env-vars=DISCORD_GENERATED_URL=${_DISCORD_GENERATED_URL}'
+      - '--set-secrets=MYSQL_USERNAME=MYSQL_USERNAME:latest,MYSQL_PASSWORD=MYSQL_PASSWORD:latest,MYSQL_DB=MYSQL_DB:latest,DISCORD_CLIENT_ID=DISCORD_CLIENT_ID:latest,DISCORD_SECRET=DISCORD_SECRET:latest,AES_HTTP_TRANSPORT_SECRET=AES_HTTP_TRANSPORT_SECRET:latest'
+    env:
+      - 'LOG_LEVEL=${_LOG_LEVEL}'
+      - 'GCP_CLOUD_SQL_INSTANCE=${_GCP_CLOUD_SQL_INSTANCE}'
+      - 'DISCORD_API=${_DISCORD_API}'
+      - 'CLIENT_URL=${_CLIENT_URL}'
+      - 'DRIFT_MESSAGE=${_DRIFT_MESSAGE}'
+      - 'DISCORD_REDIRECT_URI=${_DISCORD_REDIRECT_URI}'
+      - 'DISCORD_GENERATED_URL=${_DISCORD_GENERATED_URL}'
+
+images:
+  - 'gcr.io/${_GCP_PROJECT}/${_SERVICE_NAME}:${_SERVICE_VERSION}'
+
+timeout: '1800s'
+
+substitutions:
+  _SOURCE_PATH: '.'
+  _GCP_PROJECT: 'drift-discord'
+  _GCP_REGION: 'us-east1'
+  _SERVICE_NAME: 'api-sql'
+  _SERVICE_VERSION: '0.0.1'
+  _MEMORY: '1Gi'
+  _CPUS: '1'
+  _CONCURRENCY: '100'
+  _MAX_INSTANCES: '2'
+  _PRODUCTION: 'true'
+  _LOG_LEVEL: 'warn'
+  _GCP_CLOUD_SQL_INSTANCE: 'drift-discord:us-central1:drift-discord-db'
+  _DISCORD_API: 'https://discord.com/api/v8'
+  _CLIENT_URL: 'http://localhost:3000'
+  _DRIFT_MESSAGE: 'Welcome to Drift Discord! Drift’s goal is to bring a state-of-the-art trader-centric experience from centralized exchanges on-chain.'
+  _DISCORD_REDIRECT_URI: "https://api-4fpiw4senq-ue.a.run.app/v1/discord_redirect"
+  _DISCORD_GENERATED_URL: "https://discord.com/api/oauth2/authorize?client_id=998151215726723162&redirect_uri=https%3A%2F%2Fapi-4fpiw4senq-ue.a.run.app%2Fv1%2Fdiscord_redirect&response_type=code&scope=identify%20email"

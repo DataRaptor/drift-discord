@@ -36,7 +36,7 @@
             "pino-pretty": "^7.6.1",
             "prom-client": "^14.0.1",
             "tweetnacl": "^1.0.3",
-            "typeorm": "^0.2.38"
+            "typeorm": "^0.2.45"
       },
       "scripts": {
             "test": "ts-mocha -p ./tsconfig.json ./tests/**/*.spec.ts",
@@ -45,6 +45,7 @@
             "dev:debug": "nodemon --config nodemon.json --inspect-brk src/main.ts | pino-pretty",
             "build": "tsc",
             "start": "yarn run create-env && node ./build/main.js | pino-pretty",
+            "start-noenv": "node ./build/main.js | pino-pretty",
             "create-env": "printenv > .env"
       }
 }

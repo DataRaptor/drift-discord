@@ -1,5 +1,5 @@
 import express from 'express'
-import { logger, connectDB } from './services'
+import { logger, connectDb } from './services'
 import {
       getDiscordRedirectHandler,
       getDiscordUserHandler,
@@ -18,7 +18,7 @@ import { PORT } from './config'
 import { getIndexHandler } from './routes/getIndex'
 
 const main = async () => {
-      await connectDB()
+      await connectDb()
       const app = express()
       app.use(createCorsMiddleware())
       app.use(createJsonMiddleware())
@@ -68,7 +68,7 @@ const main = async () => {
       )
 
       app.listen(PORT, async () =>
-            logger.info(`🦾 [Drift-Discord::API] listening on PORT: ${PORT}`)
+            logger.info(`[Drift-Discord::API] 🦾 listening on PORT: ${PORT}`)
       )
 }
 

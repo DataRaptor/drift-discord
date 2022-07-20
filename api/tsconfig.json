@@ -12,6 +12,7 @@
             "strict": false,
             "experimentalDecorators": true,
             "skipDefaultLibCheck": true,
-            "types": []
+            "types": [],
+            "emitDecoratorMetadata": true
       }
 }
