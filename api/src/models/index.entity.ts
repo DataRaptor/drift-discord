@@ -1,4 +1,3 @@
-
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity({ name: 'discord_users' })

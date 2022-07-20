@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 // Non-secrets
-export const PRODUCTION: boolean = (process.env.PRODUCTION == 'true') || false
+export const PRODUCTION: boolean = process.env.PRODUCTION == 'true' || false
 export const PORT: string | number = process.env.PORT || 8080
 export const LOG_LEVEL: string = process.env.LOG_LEVEL || 'debug'
 
@@ -15,7 +15,8 @@ export const CLIENT_URL: string = process.env.CLIENT_URL || ''
 export const DRIFT_MESSAGE: string =
       process.env.DRIFT_MESSAGE || 'Default Drift Message'
 
-export const GCP_CLOUD_SQL_INSTANCE: string = process.env.GCP_CLOUD_SQL_INSTANCE || ""
+export const GCP_CLOUD_SQL_INSTANCE: string =
+      process.env.GCP_CLOUD_SQL_INSTANCE || ''
 export const MYSQL_PORT: number = parseInt(process.env.MYSQL_POST) || 3306
 
 // Secrets

@@ -1,4 +1,4 @@
-import { logger } from "./logger"
+import { logger } from './logger'
 import {
       PRODUCTION,
       MYSQL_HOST,
@@ -9,7 +9,7 @@ import {
       GCP_CLOUD_SQL_INSTANCE,
 } from '../config'
 import { createConnection } from 'typeorm'
-import { DiscordUser } from "../models/index.entity"
+import { DiscordUser } from '../models/index.entity'
 
 export const connectDb = async () => {
       if (PRODUCTION) {
@@ -19,15 +19,15 @@ export const connectDb = async () => {
                   username: MYSQL_USERNAME,
                   password: MYSQL_PASSWORD,
                   extra: {
-                        socketPath: `/cloudsql/${GCP_CLOUD_SQL_INSTANCE}`
+                        socketPath: `/cloudsql/${GCP_CLOUD_SQL_INSTANCE}`,
                   },
                   database: MYSQL_DB,
                   synchronize: true,
                   logging: false,
                   migrationsTableName: 'migrations',
-                  entities: [DiscordUser]
+                  entities: [DiscordUser],
             })
-            logger.info("Production mysql cloudsql db connected")
+            logger.info('Production mysql cloudsql db connected')
       } else {
             await createConnection({
                   type: 'mysql',
@@ -39,8 +39,8 @@ export const connectDb = async () => {
                   synchronize: true,
                   logging: false,
                   migrationsTableName: 'migrations',
-                  entities: [DiscordUser]
+                  entities: [DiscordUser],
             })
-            logger.info("Development mysql local db connected")
+            logger.info('Development mysql local db connected')
       }
 }
