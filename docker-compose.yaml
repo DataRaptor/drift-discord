@@ -27,7 +27,7 @@ services:
       MYSQL_USERNAME: "root"
       MYSQL_PASSWORD: "dev"
       MYSQL_DB: "drift-discord"
-      AES_HTTP_TRANSPORT_SECRET: "11122233344455566677788822244455555555555555555231231321313aaaff"
+      AES_HTTP_TRANSPORT_SECRET: ""
     depends_on: 
       - db
   # client:
