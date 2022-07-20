@@ -1,5 +1,5 @@
 import express from 'express'
-import { logger, connectDb } from './services'
+import { logger } from './services'
 import {
       getDiscordRedirectHandler,
       getDiscordUserHandler,
@@ -14,11 +14,12 @@ import {
       createPromMetricsMiddleware,
       createPinoLoggerMiddleware,
 } from './middlewares'
+import { connectDB } from "./db"
 import { PORT } from './config'
 import { getIndexHandler } from './routes/getIndex'
 
 const main = async () => {
-      await connectDb()
+      await connectDB()
       const app = express()
       app.use(createCorsMiddleware())
       app.use(createJsonMiddleware())

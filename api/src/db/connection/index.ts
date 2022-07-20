@@ -1,4 +1,4 @@
-import { logger } from './logger'
+import { logger } from '../../services/logger'
 import {
       PRODUCTION,
       MYSQL_HOST,
@@ -7,11 +7,11 @@ import {
       MYSQL_PASSWORD,
       MYSQL_DB,
       GCP_CLOUD_SQL_INSTANCE,
-} from '../config'
+} from '../../config'
 import { createConnection } from 'typeorm'
 import { DiscordUser } from '../models/index.entity'
 
-export const connectDb = async () => {
+export const connectDB = async () => {
       if (PRODUCTION) {
             await createConnection({
                   type: 'mysql',

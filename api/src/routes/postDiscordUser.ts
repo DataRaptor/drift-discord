@@ -1,7 +1,8 @@
 import express from 'express'
 import { logger } from '../services/logger'
-import { verifySignature, decryptAccessToken } from '../utils'
 import { getDiscordUserData, revokeDiscordAccessToken } from '../apis'
+import { verifySignature, decryptAccessToken, censorDiscordUserDataByLocale } from '../libs'
+import { createDiscordUser, findDiscordUser } from '../db'
 import {
       GDPRCensoredDiscordUserData,
       GDPRExemptDiscordUserData,
@@ -9,8 +10,7 @@ import {
       SolanaWalletData,
 } from '../types'
 import { DRIFT_MESSAGE } from '../config'
-import { censorDiscordUserDataByLocale } from '../libs'
-import { createDiscordUser, findDiscordUser } from '../db'
+
 
 export const postDiscordUserHandler = async (
       req: express.Request,
@@ -20,7 +20,7 @@ export const postDiscordUserHandler = async (
             const { accessToken, signature, publicKey } = req.body
             const decryptedAccessToken: string = decryptAccessToken(accessToken)
             if (verifySignature(publicKey, signature)) {
-                  const discordUserData = await getDiscordUserData(
+                  const discordUserData: DiscordUserData = await getDiscordUserData(
                         decryptedAccessToken
                   )
                   const existingUser = await findDiscordUser(publicKey)

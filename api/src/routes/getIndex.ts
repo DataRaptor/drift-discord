@@ -1,5 +1,4 @@
 import express from 'express'
-import { logger } from '../services'
 
 export const getIndexHandler = async (
       _req: express.Request,

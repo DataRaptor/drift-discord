@@ -1,5 +1,4 @@
 import express from 'express'
-import { logger } from '../services'
 import { RegistrationConfig } from '../types'
 import { DISCORD_GENERATED_URL, DRIFT_MESSAGE } from '../config'
 

@@ -1,18 +1,16 @@
 import express from 'express'
-import { findDiscordUser } from '../db'
-import { DiscordUser } from '../models/index.entity'
-import { logger } from '../services'
-import { verifySignature } from '../utils'
+import { DiscordUser, findDiscordUser } from '../db'
+import { verifySignature } from '../libs'
 
 export const getDiscordUserHandler = async (
       req: express.Request,
       res: express.Response
 ) => {
       try {
-            const signature = req.query.signature as string
-            const publicKey = req.query.publicKey as string
+            const signature: string = String(req.query.signature)
+            const publicKey: string = String(req.query.publicKey)
             if (verifySignature(publicKey, signature)) {
-                  var user = await findDiscordUser(publicKey)
+                  var user: DiscordUser = await findDiscordUser(publicKey)
                   res.status(200).json({
                         ok: true,
                         message: 'Welcome back!',

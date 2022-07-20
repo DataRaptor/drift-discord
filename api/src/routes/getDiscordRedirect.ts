@@ -1,7 +1,7 @@
 import express from 'express'
 import { exchangeDiscordAccessToken } from '../apis'
 import { logger } from '../services'
-import { encryptAccessToken } from '../utils/crypto'
+import { encryptAccessToken } from '../libs/crypto'
 import { CLIENT_URL } from '../config'
 
 export const getDiscordRedirectHandler = async (
