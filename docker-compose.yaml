@@ -30,19 +30,19 @@ services:
       AES_HTTP_TRANSPORT_SECRET: ""
     depends_on: 
       - db
-  # client:
-  #   container_name: client
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 8080:8080
-  #   networks:
-  #     - drift-network
-  #   restart: always
-  #   depends_on:
-  #     - api
-  #   restart: always
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - drift-network
+    restart: always
+    depends_on:
+      - api
+    restart: always
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
