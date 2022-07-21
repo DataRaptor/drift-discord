@@ -28,8 +28,8 @@ export const getDiscordUser = async (
       throw Error('GET::discord_user returned a non 200 status code.')
 }
 
-export const getRegistrationConfig = async (): Promise<any> => {
-      const response = await fetch(`${API_URL}/v1/registration_config`, {
+export const getAuthConfig = async (): Promise<any> => {
+      const response = await fetch(`${API_URL}/v1/auth_config`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
       })
@@ -37,7 +37,7 @@ export const getRegistrationConfig = async (): Promise<any> => {
             const responseJson = await response.json()
             return responseJson
       }
-      throw Error('GET::registration_config returned a non 200 status code.')
+      throw Error('GET::auth_config returned a non 200 status code.')
 }
 
 export const postCreateDiscordUser = async (

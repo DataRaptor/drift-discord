@@ -10,7 +10,7 @@ import { LoadingSpinner } from './loading-spinner'
 import {
       postCreateDiscordUser,
       getDiscordUser,
-      getRegistrationConfig,
+      getAuthConfig,
 } from '../../api'
 import {
       fireConfetti,
@@ -36,7 +36,7 @@ export const SocialsComponent = () => {
       const [discordGeneratedUrl, setDiscordGeneratedUrl] = useState('')
       const [discordUser, setDiscordUser] = useState(null)
       const [discordUserFetched, setDiscordUserFetched] = useState(false)
-      const [registrationConfigFetched, setRegistrationConfigFetched] =
+      const [authConfigFetched, setAuthConfigFetched] =
             useState(false)
       const { connected, publicKey, signMessage } = useWallet()
 
@@ -83,12 +83,12 @@ export const SocialsComponent = () => {
             router.push(discordGeneratedUrl)
       }
 
-      const executeGetRegistrationConfig = async () => {
+      const executeGetAuthConfig = async () => {
             // Executed on page load, this gets us our message to sign and the discord
             // oAuth redirect from the server so that we don't have to store in on the client.
-            if (registrationConfigFetched) return
-            const responseJson = await getRegistrationConfig()
-            if (responseJson.ok) setRegistrationConfigFetched(true)
+            if (authConfigFetched) return
+            const responseJson = await getAuthConfig()
+            if (responseJson.ok) setAuthConfigFetched(true)
             return responseJson
       }
 
@@ -138,11 +138,11 @@ export const SocialsComponent = () => {
             }
       )
 
-      const getRegistrationConfigResponse = useSWR(
-            'GET::/v1/registration_config',
-            executeGetRegistrationConfig,
+      const getAuthConfigResponse = useSWR(
+            'GET::/v1/auth_config',
+            executeGetAuthConfig,
             {
-                  refreshInterval: 100, // Execute every 0.1 seconds. Note requests will not execute if registrationConfig already fetched.
+                  refreshInterval: 100, // Execute every 0.1 seconds. Note requests will not execute if authConfig already fetched.
             }
       )
 
@@ -154,7 +154,7 @@ export const SocialsComponent = () => {
 
             // This will ensure valid signatures make it to the API and minimize the number of times
             // users have to sign messages.
-            if (!registrationConfigFetched) return // break if we have not fetched registration yet
+            if (!authConfigFetched) return // break if we have not fetched registration yet
             const message = new TextEncoder().encode(driftMessage) as Uint8Array
             const executeRefetchSignature = async () => {
                   setDiscordUser(null)
@@ -203,21 +203,21 @@ export const SocialsComponent = () => {
       }, [getDiscordUserResponse.data])
 
       useEffect(() => {
-            if (getRegistrationConfigResponse.data) {
-                  const { registrationConfig } =
-                        getRegistrationConfigResponse.data
-                  setDriftMessage(registrationConfig.driftMessage)
-                  setDiscordGeneratedUrl(registrationConfig.discordGeneratedUrl)
+            if (getAuthConfigResponse.data) {
+                  const { authConfig } =
+                        getAuthConfigResponse.data
+                  setDriftMessage(authConfig.driftMessage)
+                  setDiscordGeneratedUrl(authConfig.discordGeneratedUrl)
             }
-      }, [getRegistrationConfigResponse.data])
+      }, [getAuthConfigResponse.data])
 
       return (
             <div className={styles.socialsContainerWrapper}>
                   <div className={styles.socialsContainer}>
                         <div className={styles.headerText}>{headerMessage}</div>
                         <div className={styles.socialsContainerInner}>
-                              {!registrationConfigFetched && <LoadingSpinner />}
-                              {registrationConfigFetched && (
+                              {!authConfigFetched && <LoadingSpinner />}
+                              {authConfigFetched && (
                                     <>
                                           {!connected && <ConnectButton />}
                                           {connected && !discordUser && (

@@ -4,7 +4,7 @@ import {
       getIndexHandler,
       getDiscordRedirectHandler,
       getDiscordUserHandler,
-      getRegistrationConfigHandler,
+      getAuthConfigHandler,
       postDiscordUserHandler,
 } from './routes'
 import {
@@ -52,12 +52,12 @@ const main = async () => {
             getDiscordUserHandler
       )
       app.get(
-            '/v1/registration_config',
+            '/v1/auth_config',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
                   30 // max 30 requests per 1 min per ip.
             ),
-            getRegistrationConfigHandler
+            getAuthConfigHandler
       )
       app.post(
             '/v1/discord_user',

@@ -1,4 +1,4 @@
-export type RegistrationConfig = {
+export type AuthConfig = {
       discordGeneratedUrl: string
       driftMessage: string
 }
