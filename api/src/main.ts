@@ -35,7 +35,7 @@ const main = async () => {
             getIndexHandler
       )
       app.get(
-            '/',
+            '/v1',
             createRateLimitMiddleware(
                   1 * 60 * 1000,
                   60 // max 60 requests per 1 min per up
