@@ -1,6 +1,7 @@
 import express from 'express'
 import { logger } from './services'
 import {
+      getIndexHandler,
       getDiscordRedirectHandler,
       getDiscordUserHandler,
       getRegistrationConfigHandler,
@@ -16,7 +17,6 @@ import {
 } from './middlewares'
 import { connectDB } from "./db"
 import { PORT } from './config'
-import { getIndexHandler } from './routes/getIndex'
 
 const main = async () => {
       await connectDB()

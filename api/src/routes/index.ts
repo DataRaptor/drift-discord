@@ -5,6 +5,7 @@ import { getRegistrationConfigHandler } from './getRegistrationConfig'
 import { postDiscordUserHandler } from './postDiscordUser'
 
 export {
+      getIndexHandler,
       getDiscordRedirectHandler,
       getDiscordUserHandler,
       getRegistrationConfigHandler,
