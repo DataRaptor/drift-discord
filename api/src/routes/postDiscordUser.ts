@@ -38,7 +38,7 @@ export const postDiscordUserHandler = async (
                               censoredDiscordUserData,
                               solanaWalletData
                         )
-                        await revokeDiscordAccessToken(accessToken)
+                        await revokeDiscordAccessToken(decryptedAccessToken)
                         res.status(200).json({
                               ok: true,
                               user: user,
